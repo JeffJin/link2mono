@@ -1,0 +1,19 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="EventSource/Commands/CommandDispatcher.cs">
+    <Files>
+      <File FileName="Appointments.Aggregates/Models/Appointment.cs" Line="24" Column="3" />
+      <File FileName="Appointments.Commands/MakeAppointment.cs" Line="15" Column="17" />
+      <File FileName="EventSource/Commands/CommandBus.cs" Line="30" Column="42" />
+      <File FileName="EventSource/Commands/ICommandDispatcher.cs" Line="8" Column="1" />
+      <File FileName="EventSource/Commands/CommandDispatcher.cs" Line="42" Column="117" />
+      <File FileName="EventSource/Commands/ICommandHandler.cs" Line="7" Column="19" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Jeff Jin" Email="jeff@jeffjin.com" Copyright="" Company="eWorkspace Solutions Inc." Trademark="" />
+  <MultiItemStartupConfigurations />
+</Properties>

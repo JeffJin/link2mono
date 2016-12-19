@@ -1,0 +1,5 @@
+/Users/Jeff/Projects/Link2/Appointment.Aggregates/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/Jeff/Projects/Link2/Appointment.Aggregates/bin/Debug/Appointment.Aggregates.dll.mdb
+/Users/Jeff/Projects/Link2/Appointment.Aggregates/bin/Debug/Appointment.Aggregates.dll
+/Users/Jeff/Projects/Link2/Appointment.Aggregates/obj/Debug/Appointment.Aggregates.dll
+/Users/Jeff/Projects/Link2/Appointment.Aggregates/obj/Debug/Appointment.Aggregates.dll.mdb
