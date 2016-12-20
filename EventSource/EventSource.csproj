@@ -38,6 +38,12 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandDispatcher.cs" />
     <Compile Include="Commands\CommandDispatcher.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventSourced.cs" />
+    <Compile Include="Events\IVersionedEvent.cs" />
+    <Compile Include="EventStore\IEventSourcedRepository.cs" />
+    <Compile Include="Events\EventSourced.cs" />
+    <Compile Include="Events\VersionedEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />

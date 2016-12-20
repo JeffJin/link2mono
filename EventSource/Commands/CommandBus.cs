@@ -24,9 +24,14 @@ namespace EventSource
 			return result;
 		}
 
+		/// <summary>
+		/// Send the specified command and corrsponding command handlers will generate related events 
+		/// and save them to RabbitMQ or any other persistent storage(queue).
+		/// </summary>
+		/// <returns>The send.</returns>
+		/// <param name="command">Command.</param>
 		public bool Send(ICommand command)
 		{
-			//TODO command
 			return this.dispatcher.ProcessCommand(command);
 		}
 	}

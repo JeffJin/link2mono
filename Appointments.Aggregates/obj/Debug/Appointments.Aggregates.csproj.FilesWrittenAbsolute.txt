@@ -3,3 +3,5 @@
 /Users/Jeff/Projects/Link2/Appointments.Aggregates/bin/Debug/Appointments.Aggregates.dll
 /Users/Jeff/Projects/Link2/Appointments.Aggregates/obj/Debug/Appointments.Aggregates.dll
 /Users/Jeff/Projects/Link2/Appointments.Aggregates/obj/Debug/Appointments.Aggregates.dll.mdb
+/Users/Jeff/Projects/Link2/Appointments.Aggregates/bin/Debug/EventSource.dll
+/Users/Jeff/Projects/Link2/Appointments.Aggregates/bin/Debug/EventSource.dll.mdb

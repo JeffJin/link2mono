@@ -1,9 +1,9 @@
 /Users/Jeff/Projects/Link2/Appointments.Commands/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/Users/Jeff/Projects/Link2/Appointments.Commands/EventSource.dll
-/Users/Jeff/Projects/Link2/Appointments.Commands/EventSource.dll.mdb
 /Users/Jeff/Projects/Link2/Appointments.Commands/Appointments.Commands.dll.mdb
 /Users/Jeff/Projects/Link2/Appointments.Commands/Appointments.Commands.dll
 /Users/Jeff/Projects/Link2/Appointments.Commands/obj/Debug/Appointments.Commands.dll
 /Users/Jeff/Projects/Link2/Appointments.Commands/obj/Debug/Appointments.Commands.dll.mdb
+/Users/Jeff/Projects/Link2/Appointments.Commands/EventSource.dll
+/Users/Jeff/Projects/Link2/Appointments.Commands/EventSource.dll.mdb
 /Users/Jeff/Projects/Link2/Appointments.Commands/Appointments.Aggregates.dll
 /Users/Jeff/Projects/Link2/Appointments.Commands/Appointments.Aggregates.dll.mdb

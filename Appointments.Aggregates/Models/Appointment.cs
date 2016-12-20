@@ -1,13 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using EventSource;
 
 namespace Appointments.Aggregates
 {
-	public class Appointment
+	public class Appointment: EventSourced
 	{
-		public Appointment()
-		{
+		public Appointment(Guid id) : base(id)
+        {
+			Init();
 		}
+
+		public Appointment(Guid id, IEnumerable<IVersionedEvent> history): this(id)
+		{
+			this.LoadFrom(history);
+			//Update(new AppointmentCreated(info));
+		}
+
+		private void Init()
+		{
+
+		}
+
 
 		public DateTimeOffset Start { get; set; }
 
@@ -23,6 +37,8 @@ namespace Appointments.Aggregates
 		public string Organizer { get; }
 
 		public IList<Person> Attendees { get; }
+
+
 		
 	}
 
