@@ -1,27 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using EventSource;
 
-namespace Appointments.Aggregates
+namespace Appointments.Dto
 {
-	public class Appointment: EventSourced
+	public class Appointment
 	{
-		public Appointment(Guid id) : base(id)
+		public Appointment()
         {
-			Init();
+			Id = Guid.NewGuid();
 		}
 
-		public Appointment(Guid id, IEnumerable<IVersionedEvent> history): this(id)
-		{
-			this.LoadFrom(history);
-			//Update(new AppointmentCreated(info));
-		}
-
-		private void Init()
-		{
-
-		}
-
+		public Guid Id { get; }
 
 		public DateTimeOffset Start { get; set; }
 

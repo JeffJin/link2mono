@@ -1,5 +1,6 @@
 ﻿using System;
 using Appointments.Aggregates;
+using Appointments.Dto;
 using EventSource;
 
 namespace Appointments.Commands

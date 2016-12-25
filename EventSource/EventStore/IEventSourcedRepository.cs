@@ -19,7 +19,7 @@ namespace EventSource
 		/// </summary>
 		/// <param name="id">The id of the entity</param>
 		/// <returns>The hydrated entity</returns>
-		/// <exception cref="EntityNotFoundException">If the entity is not found.</exception>
+		/// <exception cref="AggregateNotFoundException">If the entity is not found.</exception>
 		T Get(Guid id);
 
 		/// <summary>

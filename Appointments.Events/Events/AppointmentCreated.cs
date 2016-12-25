@@ -1,14 +1,15 @@
-﻿using EventSource;
+﻿using Appointments.Dto;
+using EventSource;
 
 namespace Appointments.Aggregates
 {
 	public class AppointmentCreated : VersionedEvent
 	{
-		object info;
+		private Appointment Appointment { get; }
 
-		public AppointmentCreated(object info)
+		public AppointmentCreated(Appointment appt)
 		{
-			this.info = info;
+			this.Appointment = appt;
 		}
 	}
 }

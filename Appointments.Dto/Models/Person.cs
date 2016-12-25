@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Appointments.Aggregates
+namespace Appointments.Dto
 {
 
 	public class Person{

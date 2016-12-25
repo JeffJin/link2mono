@@ -5,3 +5,5 @@
 /Users/Jeff/Projects/Link2/Appointments.Events/obj/Debug/Appointments.Events.dll.mdb
 /Users/Jeff/Projects/Link2/Appointments.Events/bin/Debug/EventSource.dll
 /Users/Jeff/Projects/Link2/Appointments.Events/bin/Debug/EventSource.dll.mdb
+/Users/Jeff/Projects/Link2/Appointments.Events/bin/Debug/Appointments.Dto.dll
+/Users/Jeff/Projects/Link2/Appointments.Events/bin/Debug/Appointments.Dto.dll.mdb

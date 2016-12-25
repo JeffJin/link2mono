@@ -43,6 +43,10 @@
       <Project>{CF0FE35D-8A93-46EE-B4FB-3CE274C072C0}</Project>
       <Name>Appointments.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Appointments.Dto\Appointments.Dto.csproj">
+      <Project>{6BD94002-4550-4F0B-981D-FE918E723179}</Project>
+      <Name>Appointments.Dto</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CommandHandlers\" />

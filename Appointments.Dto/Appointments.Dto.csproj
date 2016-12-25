@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D48160BC-A84E-4765-9D67-F0791BFE9A3A}</ProjectGuid>
+    <ProjectGuid>{6BD94002-4550-4F0B-981D-FE918E723179}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>EventSource</RootNamespace>
-    <AssemblyName>EventSource</AssemblyName>
+    <RootNamespace>Appointments.Dto</RootNamespace>
+    <AssemblyName>Appointments.Dto</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -28,28 +28,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands\CommandBus.cs" />
-    <Compile Include="Commands\ICommandBus.cs" />
-    <Compile Include="Commands\ICommandHandler.cs" />
-    <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\ICommandDispatcher.cs" />
-    <Compile Include="Commands\CommandDispatcher.cs" />
-    <Compile Include="Events\IEvent.cs" />
-    <Compile Include="Events\IEventSourced.cs" />
-    <Compile Include="Events\IVersionedEvent.cs" />
-    <Compile Include="EventStore\IEventSourcedRepository.cs" />
-    <Compile Include="Events\AggregateRoot.cs" />
-    <Compile Include="Events\VersionedEvent.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Events\" />
-    <Folder Include="EventStore\" />
-    <Folder Include="ReadModel\" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Person.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
