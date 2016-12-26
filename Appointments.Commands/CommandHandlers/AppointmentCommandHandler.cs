@@ -16,14 +16,14 @@ namespace Appointments.Commands
 
 		public void Handle(MakeAppointment command)
 		{
-			AppointmentAggregate appointmentAggregte = _repository.Find(command.Id);
-			if (appointmentAggregte == null)
+			AppointmentAggregate appointmentAggregate = _repository.Find(command.Id);
+			if (appointmentAggregate != null)
 			{
-				throw new AggregateNotFoundException(command.Id, "Appointment");
+				throw new DuplicatedAggregateException(command.Id, "Appointment");
 			}
 
-			appointmentAggregte.AddNewAppointment(appointmentAggregte, command.Appointment);
-			_repository.Save(appointmentAggregte, command.Id.ToString());
+			appointmentAggregate.CreateAppointment(command.Appointment);
+			_repository.Save(appointmentAggregate, command.Id.ToString());
 		}
 	}
 

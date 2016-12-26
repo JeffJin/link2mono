@@ -44,6 +44,8 @@
     <Compile Include="EventStore\IEventSourcedRepository.cs" />
     <Compile Include="Events\AggregateRoot.cs" />
     <Compile Include="Events\VersionedEvent.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="ReadModel\IReadModelRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />

@@ -18,11 +18,11 @@ namespace Appointments.Aggregates
 			this.LoadFrom(history);
 		}
 	
-		public void AddNewAppointment(AppointmentAggregate instance, Appointment info)
+		public void CreateAppointment(Appointment info)
 		{
 			var evt = new AppointmentCreated(info);
 
-			instance.Update(evt);
+			this.Update(evt);
 		}
 	}
 
