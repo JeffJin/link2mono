@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
-namespace Appointments.Commands
+namespace EventSource
 {
 
     [Serializable]

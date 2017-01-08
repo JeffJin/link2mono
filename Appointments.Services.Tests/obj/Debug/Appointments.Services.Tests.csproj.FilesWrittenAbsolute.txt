@@ -3,3 +3,4 @@
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/Appointments.Services.Tests.dll
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/obj/Debug/Appointments.Services.Tests.dll
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/obj/Debug/Appointments.Services.Tests.dll.mdb
+/Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/nunit.framework.dll

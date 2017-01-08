@@ -45,13 +45,23 @@
     <Compile Include="Events\AggregateRoot.cs" />
     <Compile Include="Events\VersionedEvent.cs" />
     <Compile Include="Events\IEventHandler.cs" />
-    <Compile Include="ReadModel\IReadModelRepository.cs" />
+    <Compile Include="ReadModel\IEventStore.cs" />
+    <Compile Include="Exceptions\AggregateNotFoundException.cs" />
+    <Compile Include="Exceptions\DuplicatedAggregateException.cs" />
+    <Compile Include="ReadModel\EventStore.cs" />
+    <Compile Include="EventStore\EventSourcedRepository.cs" />
+    <Compile Include="EventStore\ITextSerializer.cs" />
+    <Compile Include="EventStore\IEventStoreNotifier.cs" />
+    <Compile Include="EventStore\IMetadataProvider.cs" />
+    <Compile Include="EventStore\StandardMetadata.cs" />
+    <Compile Include="EventStore\EventData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Events\" />
     <Folder Include="EventStore\" />
     <Folder Include="ReadModel\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
