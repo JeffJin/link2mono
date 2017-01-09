@@ -38,13 +38,13 @@
       <Project>{D48160BC-A84E-4765-9D67-F0791BFE9A3A}</Project>
       <Name>EventSource</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Appointments.Events\Appointments.Events.csproj">
-      <Project>{7D5879E0-BC3D-4947-B067-A77E29D3C5D9}</Project>
-      <Name>Appointments.Events</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Appointments.Dto\Appointments.Dto.csproj">
       <Project>{6BD94002-4550-4F0B-981D-FE918E723179}</Project>
       <Name>Appointments.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Events\Appointments.Events.csproj">
+      <Project>{7D5879E0-BC3D-4947-B067-A77E29D3C5D9}</Project>
+      <Name>Appointments.Events</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

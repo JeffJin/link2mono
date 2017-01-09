@@ -55,6 +55,7 @@
     <Compile Include="EventStore\IMetadataProvider.cs" />
     <Compile Include="EventStore\StandardMetadata.cs" />
     <Compile Include="EventStore\EventData.cs" />
+    <Compile Include="EventStore\DictionaryExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />

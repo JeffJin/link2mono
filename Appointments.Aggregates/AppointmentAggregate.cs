@@ -13,6 +13,8 @@ namespace Appointments.Aggregates
         {
 		}
 
+		//this is requirement for EventStoreRepository 
+		//var constructor = typeof(T).GetConstructor(new[] { typeof(Guid), typeof(IEnumerable<IVersionedEvent>) });
 		public AppointmentAggregate(Guid id, IEnumerable<IVersionedEvent> history) : this(id)
 		{
 			this.LoadFrom(history);

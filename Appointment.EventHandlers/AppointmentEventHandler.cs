@@ -2,13 +2,13 @@
 using Appointments.Aggregates;
 using EventSource;
 
-namespace Appointments.Events
+namespace Appointments.EventHandlers
 {
 	public class AppointmentEventHandler: IEventHandler<AppointmentCreated>
 	{
-		readonly IEventPersistence repository;
+		readonly IEventSourcedRepository<AppointmentAggregate> repository;
 
-		public AppointmentEventHandler(IEventPersistence repository)
+		public AppointmentEventHandler(IEventSourcedRepository<AppointmentAggregate> repository)
 		{
 			this.repository = repository;
 		}

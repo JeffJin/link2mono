@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource", "EventSource\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointments.Dto", "Appointments.Dto\Appointments.Dto.csproj", "{6BD94002-4550-4F0B-981D-FE918E723179}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.EventHandlers", "Appointment.EventHandlers\Appointment.EventHandlers.csproj", "{3AFFF9BA-545A-41B0-8981-0C52FD2AE241}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{6BD94002-4550-4F0B-981D-FE918E723179}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BD94002-4550-4F0B-981D-FE918E723179}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BD94002-4550-4F0B-981D-FE918E723179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AFFF9BA-545A-41B0-8981-0C52FD2AE241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AFFF9BA-545A-41B0-8981-0C52FD2AE241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AFFF9BA-545A-41B0-8981-0C52FD2AE241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AFFF9BA-545A-41B0-8981-0C52FD2AE241}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -108,5 +114,6 @@ Global
 		{BA680A82-A83F-455F-8023-DE37BCBA85DC} = {FEFAF14D-CBAC-4F01-91B9-B9B2BD12BFB0}
 		{D48160BC-A84E-4765-9D67-F0791BFE9A3A} = {7AB7886F-B919-407C-905E-EE26897C9CD5}
 		{6BD94002-4550-4F0B-981D-FE918E723179} = {FEFAF14D-CBAC-4F01-91B9-B9B2BD12BFB0}
+		{3AFFF9BA-545A-41B0-8981-0C52FD2AE241} = {FEFAF14D-CBAC-4F01-91B9-B9B2BD12BFB0}
 	EndGlobalSection
 EndGlobal

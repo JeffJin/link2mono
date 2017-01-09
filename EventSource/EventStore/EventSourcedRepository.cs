@@ -53,50 +53,23 @@ namespace EventSource
 
 		}
 
-		public T Find(Guid id)
+		public Task<T> Find(Guid id)
 		{
-			//var deserialized = eventStore.LoadEvents(id)
-			//	.Select(Deserialize)
-			//	.AsCachedAnyEnumerable();
-
-			//if (deserialized.Any())
-			//{
-			//	return entityFactory.Invoke(id, deserialized);
-			//}
-
-			return null;
-		}
-
-		public T Get(Guid id)
-		{
-			var entity = Find(id);
-			if (entity == null)
+			var eventSourced = eventStore.LoadEvents(id).ContinueWith(events =>
 			{
-				throw new AggregateNotFoundException(id, SourceType);
-			}
+				var deserialized = events.Result.Select(Deserialize);
 
-			return entity;
-		}
+				if (deserialized.Any())
+				{
+					return entityFactory.Invoke(id, deserialized);
+				}
+				else
+				{
+					return null;
+				}
+			});
 
-		/// <summary>
-		/// This method saves the events created from a command to azure
-		/// and using EventStoreBusPublisher to process later
-		/// </summary>
-		/// <param name="eventSourced"></param>
-		/// <param name="correlationId"></param>
-		public void Save(T eventSourced, string correlationId)
-		{
-			// TODO: guarantee that only incremental versions of the event are stored
-			var events = eventSourced.Events.ToArray();
-			var serialized = events.Select(e => Serialize(e, correlationId));
-
-			eventStore.SaveEvents(eventSourced.Events, serialized);
-
-			//the event is saved in azure storage before it is processed
-			//TODO Notify EventProcessor to generate viewModels based on events saved in azure table storage
-			//notifier.Notify(partitionKey);
-			//????? TODO
-			cacheSnapshotIfApplicable.Invoke(eventSourced);
+			return eventSourced;
 		}
 
 		/// <summary>
@@ -105,17 +78,17 @@ namespace EventSource
 		/// <param name="eventSourced"></param>
 		/// <param name="correlationId"></param>
 		/// <returns></returns>
-		public Task SaveAsync(T eventSourced, string correlationId)
+		public Task Save(T eventSourced, string correlationId)
 		{
 			// TODO: guarantee that only incremental versions of the event are stored
 			var events = eventSourced.Events.ToArray();
 			var serialized = events.Select(e => Serialize(e, correlationId));
 
-			return eventStore.SaveEvents(serialized, serialized).ContinueWith((task =>
+			return eventStore.SaveEvents(eventSourced.Id, serialized).ContinueWith((task =>
 			{
 				//TODO change to service bus publisher
 				//notifier.Notify(partitionKey);
-				cacheSnapshotIfApplicable.Invoke(eventSourced);
+				//cacheSnapshotIfApplicable.Invoke(eventSourced);
 			}));
 		}
 
@@ -150,4 +123,6 @@ namespace EventSource
 			}
 		}
 	}
+
+	
 }
