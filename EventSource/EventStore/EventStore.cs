@@ -19,7 +19,7 @@ namespace EventSource
 			throw new NotImplementedException();
 		}
 
-		public Task SaveEvents(Guid rootId, IEnumerable<EventData> events)
+		public Task<IEnumerable<IEvent>> SaveEvents(Guid rootId, IEnumerable<EventData> events)
 		{
 			throw new NotImplementedException();
 		}

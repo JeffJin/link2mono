@@ -14,5 +14,4 @@ namespace EventSource
 		/// </summary>
 		IDictionary<string, string> GetMetadata(object payload);
 	}
-	
 }

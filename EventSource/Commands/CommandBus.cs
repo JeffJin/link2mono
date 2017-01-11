@@ -1,27 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace EventSource
 {
 	public class CommandBus: ICommandBus
 	{
-		readonly ICommandDispatcher dispatcher;
+		readonly IMessageSender sender;
+		readonly ITextSerializer serializer;
 
-		public CommandBus(ICommandDispatcher dispatcher)
+		public CommandBus(IMessageSender sender, ITextSerializer serializer)
 		{
-			this.dispatcher = dispatcher;
+			this.serializer = serializer;
+			this.sender = sender;
 		}
 
-		public bool Send(IEnumerable<ICommand> commands)
+		public Task Publish(IEnumerable<ICommand> commands)
 		{
-			bool result = true;
+			var tasks = new List<Task>();
 
-			foreach(var cmd in commands){
-				result &= Send(cmd);
+			foreach (var cmd in commands)
+			{
+				tasks.Add(Publish(cmd));
 			}
 
-			return result;
+			return Task
+				.Factory
+				.ContinueWhenAll(tasks.ToArray(), finalTask => { }
+			);
 		}
 
 		/// <summary>
@@ -30,11 +37,25 @@ namespace EventSource
 		/// </summary>
 		/// <returns>The send.</returns>
 		/// <param name="command">Command.</param>
-		public bool Send(ICommand command)
+		public Task Publish(ICommand command)
 		{
-			return this.dispatcher.ProcessCommand(command);
+			Message message = BuildMessage(command);
+			return this.sender.Send(message);
+		}
+
+        private Message BuildMessage(ICommand command)
+		{
+			// TODO: should use the Command ID as a unique constraint when storing it.
+			using (var payloadWriter = new StringWriter())
+			{
+				this.serializer.Serialize(payloadWriter, command);
+				return new Message(payloadWriter.ToString(), null);
+			}
 		}
 	}
 
 	
+
+	
+
 }

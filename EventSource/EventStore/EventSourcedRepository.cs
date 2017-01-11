@@ -19,7 +19,7 @@ namespace EventSource
 		private readonly string sourceType = typeof(T).Name;
 
 		private readonly IEventStore eventStore;
-		private readonly IEventStoreNotifier notifier;
+		private readonly IEventBus eventBus;
 		private readonly ITextSerializer serializer;
 		private readonly Func<Guid, IEnumerable<IVersionedEvent>, T> entityFactory;
 		private readonly IMetadataProvider metadataProvider;
@@ -34,11 +34,11 @@ namespace EventSource
 			}
 		}
 
-		public EventSourcedRepository(IEventStore eventStore, IEventStoreNotifier notifier,
-			ITextSerializer serializer, IMetadataProvider metadataProvider)
+		public EventSourcedRepository(IEventStore eventStore, IEventBus eventBus, ITextSerializer serializer,
+		                              IMetadataProvider metadataProvider)
 		{
 			this.eventStore = eventStore;
-			this.notifier = notifier;
+			this.eventBus = eventBus;
 			this.serializer = serializer;
 			this.metadataProvider = metadataProvider;
 
@@ -84,12 +84,12 @@ namespace EventSource
 			var events = eventSourced.Events.ToArray();
 			var serialized = events.Select(e => Serialize(e, correlationId));
 
-			return eventStore.SaveEvents(eventSourced.Id, serialized).ContinueWith((task =>
+			return eventStore.SaveEvents(eventSourced.Id, serialized).ContinueWith(task =>
 			{
 				//TODO change to service bus publisher
-				//notifier.Notify(partitionKey);
+				return eventBus.Publish(task.Result);
 				//cacheSnapshotIfApplicable.Invoke(eventSourced);
-			}));
+			});
 		}
 
 

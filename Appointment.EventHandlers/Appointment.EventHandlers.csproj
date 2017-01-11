@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3AFFF9BA-545A-41B0-8981-0C52FD2AE241}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Appointment.EventHandlers</RootNamespace>
+    <AssemblyName>Appointment.EventHandlers</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AppointmentEventHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventSource\EventSource.csproj">
+      <Project>{D48160BC-A84E-4765-9D67-F0791BFE9A3A}</Project>
+      <Name>EventSource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Aggregates\Appointments.Aggregates.csproj">
+      <Project>{CF0FE35D-8A93-46EE-B4FB-3CE274C072C0}</Project>
+      <Name>Appointments.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Events\Appointments.Events.csproj">
+      <Project>{7D5879E0-BC3D-4947-B067-A77E29D3C5D9}</Project>
+      <Name>Appointments.Events</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

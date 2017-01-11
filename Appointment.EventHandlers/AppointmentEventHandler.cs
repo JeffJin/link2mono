@@ -6,9 +6,9 @@ namespace Appointments.EventHandlers
 {
 	public class AppointmentEventHandler: IEventHandler<AppointmentCreated>
 	{
-		readonly IEventSourcedRepository<AppointmentAggregate> repository;
+		readonly IReadModelRepository repository;
 
-		public AppointmentEventHandler(IEventSourcedRepository<AppointmentAggregate> repository)
+		public AppointmentEventHandler(IReadModelRepository repository)
 		{
 			this.repository = repository;
 		}

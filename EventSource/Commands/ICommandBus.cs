@@ -5,7 +5,7 @@ namespace EventSource
 {
 	public interface ICommandBus
 	{
-		bool Send(ICommand command);
-		bool Send(IEnumerable<ICommand> commands);
+		Task Publish(ICommand command);
+		Task Publish(IEnumerable<ICommand> commands);
 	}
 }

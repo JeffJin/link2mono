@@ -29,6 +29,16 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -42,20 +52,30 @@
     <Compile Include="Events\IEventSourced.cs" />
     <Compile Include="Events\IVersionedEvent.cs" />
     <Compile Include="EventStore\IEventSourcedRepository.cs" />
-    <Compile Include="Events\AggregateRoot.cs" />
     <Compile Include="Events\VersionedEvent.cs" />
     <Compile Include="Events\IEventHandler.cs" />
-    <Compile Include="ReadModel\IEventStore.cs" />
     <Compile Include="Exceptions\AggregateNotFoundException.cs" />
     <Compile Include="Exceptions\DuplicatedAggregateException.cs" />
-    <Compile Include="ReadModel\EventStore.cs" />
     <Compile Include="EventStore\EventSourcedRepository.cs" />
-    <Compile Include="EventStore\ITextSerializer.cs" />
-    <Compile Include="EventStore\IEventStoreNotifier.cs" />
-    <Compile Include="EventStore\IMetadataProvider.cs" />
-    <Compile Include="EventStore\StandardMetadata.cs" />
     <Compile Include="EventStore\EventData.cs" />
     <Compile Include="EventStore\DictionaryExtensions.cs" />
+    <Compile Include="ReadModel\IReadModelRepository.cs" />
+    <Compile Include="EventStore\EventStore.cs" />
+    <Compile Include="EventStore\IEventStore.cs" />
+    <Compile Include="Events\EventBus.cs" />
+    <Compile Include="Events\IEventBus.cs" />
+    <Compile Include="Events\IEventDispatcher.cs" />
+    <Compile Include="Events\EventDispatcher.cs" />
+    <Compile Include="Commands\CommandPorcessor.cs" />
+    <Compile Include="AggregateRoot.cs" />
+    <Compile Include="Messages\IMessageSender.cs" />
+    <Compile Include="Messages\Message.cs" />
+    <Compile Include="Messages\ITextSerializer.cs" />
+    <Compile Include="Messages\IMetadataProvider.cs" />
+    <Compile Include="Messages\StandardMetadata.cs" />
+    <Compile Include="Messages\SqlMessageSender.cs" />
+    <Compile Include="Messages\StandardMetadataProvider.cs" />
+    <Compile Include="Events\EventPorcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
@@ -63,6 +83,11 @@
     <Folder Include="EventStore\" />
     <Folder Include="ReadModel\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Messages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
