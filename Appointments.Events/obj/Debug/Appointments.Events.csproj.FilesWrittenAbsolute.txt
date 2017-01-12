@@ -7,3 +7,4 @@
 /Users/Jeff/Projects/Link2/Appointments.Events/bin/Debug/EventSource.dll.mdb
 /Users/Jeff/Projects/Link2/Appointments.Events/bin/Debug/Appointments.Dto.dll
 /Users/Jeff/Projects/Link2/Appointments.Events/bin/Debug/Appointments.Dto.dll.mdb
+/Users/Jeff/Projects/Link2/Appointments.Events/bin/Debug/EntityFramework.dll

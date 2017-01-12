@@ -76,6 +76,10 @@
     <Compile Include="Messages\SqlMessageSender.cs" />
     <Compile Include="Messages\StandardMetadataProvider.cs" />
     <Compile Include="Events\EventPorcessor.cs" />
+    <Compile Include="Messages\InMemoryMessageSender.cs" />
+    <Compile Include="Messages\AyncQueueMessageSender.cs" />
+    <Compile Include="Messages\IMessageReceiver.cs" />
+    <Compile Include="Messages\MessageReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />

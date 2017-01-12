@@ -18,21 +18,4 @@ namespace EventSource
 		/// </summary>
 		Task Send(IEnumerable<Message> messages);
 	}
-
-
-	public class InMemoryMessageSender : IMessageSender
-	{
-		public Task Send(IEnumerable<Message> messages)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task Send(Message message)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
-
-
 }
