@@ -80,6 +80,11 @@
     <Compile Include="Messages\AyncQueueMessageSender.cs" />
     <Compile Include="Messages\IMessageReceiver.cs" />
     <Compile Include="Messages\MessageReceiver.cs" />
+    <Compile Include="Messages\InMemoryMessageReceiver.cs" />
+    <Compile Include="Messages\MessageReceivedEventArgs.cs" />
+    <Compile Include="Messages\SqlMessageReceiver.cs" />
+    <Compile Include="Messages\InMemoryMessageStore.cs" />
+    <Compile Include="Commands\MessageProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />

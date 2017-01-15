@@ -13,11 +13,6 @@ namespace EventSource
 		void Register(ICommandHandler commandHandler);
 
 		/// <summary>
-		/// Processes the message by calling the registered handler with trace.
-		/// </summary>
-		bool ProcessCommand(string traceIdentifier, ICommand payload, string messageId, string correlationId);
-
-		/// <summary>
 		/// Processes the message by calling the registered handler.
 		/// </summary>
 		bool ProcessCommand(ICommand payload);

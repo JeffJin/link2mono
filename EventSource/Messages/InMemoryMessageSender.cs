@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EventSource
@@ -11,12 +12,16 @@ namespace EventSource
 	{
 		public Task Send(IEnumerable<Message> messages)
 		{
-			throw new NotImplementedException();
+			var tasks = messages.Select(x => Send(x));
+
+			return Task.WhenAll(tasks);
 		}
 
 		public Task Send(Message message)
 		{
-			throw new NotImplementedException();
+			InMemoryMessageStore.MessageQueue.Enqueue(message);
+
+			return Task.FromResult(0);
 		}
 	}
 

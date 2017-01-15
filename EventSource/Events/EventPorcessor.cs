@@ -5,25 +5,14 @@ using System.Threading.Tasks;
 namespace EventSource
 {
 
-	public class EventPorcessor
+	public class EventPorcessor: MessageProcessor
 	{
 		readonly IEventDispatcher dispatcher;
 
-		public EventPorcessor(IEventDispatcher dispatcher)
+		public EventPorcessor(IMessageReceiver receiver, ITextSerializer serializer,
+		                      IEventDispatcher dispatcher): base(receiver, serializer)
 		{
 			this.dispatcher = dispatcher;
-		}
-
-		public bool Publish(IEnumerable<IEvent> events)
-		{
-			bool result = true;
-
-			foreach (var evt in events)
-			{
-				result &= Publish(evt);
-			}
-
-			return result;
 		}
 
 		public void Register(IEventHandler eventHandler)
@@ -36,10 +25,10 @@ namespace EventSource
 		/// and save them to RabbitMQ or any other persistent storage(queue).
 		/// </summary>
 		/// <returns>The send.</returns>
-		/// <param name="evt">Event.</param>
-		public bool Publish(IEvent evt)
+		/// <param name="payload">Event.</param>
+		protected override void ProcessMessage(object payload)
 		{
-			return this.dispatcher.ProcessEvent(evt);
+			this.dispatcher.ProcessEvent((IEvent)payload);
 		}
 	}
 

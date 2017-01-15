@@ -19,6 +19,6 @@ namespace EventSource
 		/// </summary>
 		void Stop();
 	}
-
+	
 	
 }

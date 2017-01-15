@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EventSource
 {
-	//TODO send the messages and notify the handlers
+	//TODO RabbitMQ client to send messages
 	public class AyncQueueMessageSender : IMessageSender
 	{
 		public Task Send(IEnumerable<Message> messages)

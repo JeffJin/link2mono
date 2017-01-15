@@ -1,7 +1,7 @@
-﻿namespace EventSource
-{
-	using System;
+﻿using System;
 
+namespace EventSource
+{
 	public class Message
 	{
 		public Message(string body, DateTime? deliveryDate = null, string correlationId = null)

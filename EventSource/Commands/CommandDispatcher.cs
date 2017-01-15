@@ -27,11 +27,6 @@ namespace EventSource
 			return false;
 		}
 
-		public bool ProcessCommand(string traceIdentifier, ICommand payload, string messageId, string correlationId)
-		{
-			throw new NotImplementedException();
-		}
-
 		/// <summary>
 		/// Registers the specified command handler in an assembly.
 		/// </summary>
