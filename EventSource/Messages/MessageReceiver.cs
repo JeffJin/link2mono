@@ -9,7 +9,7 @@ namespace EventSource
 
 	public class MessageReceiver : IMessageReceiver
 	{
-		public void Start()
+		public void Start(Action<Message> action)
 		{
 			throw new NotImplementedException();
 		}

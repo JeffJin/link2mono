@@ -23,14 +23,15 @@ namespace EventSource
 			this.pollDelay = pollDelay;
 		}
 
-		public event EventHandler<MessageReceivedEventArgs> MessageReceived = (sender, args) => { };
+		private Action<Message> MessageReceived;
 
-		public void Start()
+		public void Start(Action<Message> processMessage)
 		{
 			lock (this.lockObject)
 			{
 				if (this.cancellationSource == null)
 				{
+					MessageReceived = processMessage;
 					this.cancellationSource = new CancellationTokenSource();
 					Task.Factory.StartNew(
 						() => this.ReceiveMessages(this.cancellationSource.Token),
@@ -91,7 +92,7 @@ namespace EventSource
 			if (InMemoryMessageStore.MessageQueue.Peek() != null)
 			{
 				Message message = InMemoryMessageStore.MessageQueue.Dequeue();
-				this.MessageReceived(this, new MessageReceivedEventArgs(message));
+				this.MessageReceived(message);
 				return true;
 			}
 			else

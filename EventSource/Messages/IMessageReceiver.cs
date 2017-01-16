@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace EventSource
 {
@@ -10,14 +7,14 @@ namespace EventSource
 	public interface IMessageReceiver
 	{
 		/// <summary>
-		/// Starts the listener.
-		/// </summary>
-		void Start();
-
-		/// <summary>
 		/// Stops the listener.
 		/// </summary>
 		void Stop();
+
+		/// <summary>
+		/// Starts the listener.
+		/// </summary>
+		void Start(Action<Message> processMessage);
 	}
 	
 	

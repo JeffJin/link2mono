@@ -1,8 +1,8 @@
 /Users/Jeff/Projects/Link2/EventSource/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/Jeff/Projects/Link2/EventSource/bin/Debug/EntityFramework.dll
+/Users/Jeff/Projects/Link2/EventSource/bin/Debug/EntityFramework.SqlServer.dll
 /Users/Jeff/Projects/Link2/EventSource/bin/Debug/EventSource.dll.config
 /Users/Jeff/Projects/Link2/EventSource/bin/Debug/EventSource.dll.mdb
 /Users/Jeff/Projects/Link2/EventSource/bin/Debug/EventSource.dll
 /Users/Jeff/Projects/Link2/EventSource/obj/Debug/EventSource.dll
 /Users/Jeff/Projects/Link2/EventSource/obj/Debug/EventSource.dll.mdb
-/Users/Jeff/Projects/Link2/EventSource/bin/Debug/EntityFramework.dll
-/Users/Jeff/Projects/Link2/EventSource/bin/Debug/EntityFramework.SqlServer.dll

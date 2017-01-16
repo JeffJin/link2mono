@@ -51,14 +51,15 @@ namespace EventSource
 				   tableName);
 		}
 
-		public event EventHandler<MessageReceivedEventArgs> MessageReceived = (sender, args) => { };
+		private Action<Message> MessageReceived;
 
-		public void Start()
+		public void Start(Action<Message> processMessage)
 		{
 			lock (this.lockObject)
 			{
 				if (this.cancellationSource == null)
 				{
+					this.MessageReceived = processMessage;
 					this.cancellationSource = new CancellationTokenSource();
 					Task.Factory.StartNew(
 						() => this.ReceiveMessages(this.cancellationSource.Token),
@@ -114,7 +115,6 @@ namespace EventSource
 			}
 		}
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "Does not contain user input.")]
 		protected bool ReceiveMessage()
 		{
 			using (var connection = this.connectionFactory.CreateConnection(this.name))
@@ -154,7 +154,7 @@ namespace EventSource
 							}
 						}
 
-						this.MessageReceived(this, new MessageReceivedEventArgs(message));
+						this.MessageReceived(message);
 
 						using (var command = connection.CreateCommand())
 						{
