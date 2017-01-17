@@ -85,6 +85,7 @@
     <Compile Include="Messages\SqlMessageReceiver.cs" />
     <Compile Include="Messages\InMemoryMessageStore.cs" />
     <Compile Include="Commands\MessageProcessor.cs" />
+    <Compile Include="ReadModel\IReadModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />

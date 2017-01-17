@@ -31,9 +31,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\AppointmentReadModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventSource\EventSource.csproj">
+      <Project>{D48160BC-A84E-4765-9D67-F0791BFE9A3A}</Project>
+      <Name>EventSource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Dto\Appointments.Dto.csproj">
+      <Project>{6BD94002-4550-4F0B-981D-FE918E723179}</Project>
+      <Name>Appointments.Dto</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

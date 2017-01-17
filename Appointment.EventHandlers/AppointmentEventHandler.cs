@@ -1,21 +1,23 @@
 ﻿using System;
 using Appointments.Aggregates;
+using Appointments.Dto;
+using Appointments.EventHandlers;
 using EventSource;
 
 namespace Appointments.EventHandlers
 {
 	public class AppointmentEventHandler: IEventHandler<AppointmentCreated>
 	{
-		readonly IReadModelRepository repository;
+		readonly IReadModelStoragte<AppointmentReadModel> storage;
 
-		public AppointmentEventHandler(IReadModelRepository repository)
+		public AppointmentEventHandler(IReadModelStoragte<AppointmentReadModel> storage)
 		{
-			this.repository = repository;
+			this.storage = storage;
 		}
 
 		public void Handle(AppointmentCreated @event)
 		{
-			throw new NotImplementedException();
+
 		}
 	}
 }

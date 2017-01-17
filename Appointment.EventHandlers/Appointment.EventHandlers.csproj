@@ -46,6 +46,10 @@
       <Project>{7D5879E0-BC3D-4947-B067-A77E29D3C5D9}</Project>
       <Name>Appointments.Events</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Appointments.ReadModel\Appointments.ReadModel.csproj">
+      <Project>{C53E9516-3ABF-4ABB-94B9-C5969D406C60}</Project>
+      <Name>Appointments.ReadModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
