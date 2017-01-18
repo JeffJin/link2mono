@@ -17,16 +17,16 @@ namespace Appointments.Dto
 
 		public DateTimeOffset End { get; set; }
 
-		public TimeSpan TimeZoneOffset { get; }
+		public int TimeZoneOffset { get; set; }
 
 		public string Subject { get; set; }
 
 		public string Body { get; set; }
 	
 		//email address of the organizer
-		public string Organizer { get; }
+		public string Organizer { get; set;}
 
-		public string AttendeeNames { get; }
+		public string AttendeeNames { get; set;}
 
 
 		

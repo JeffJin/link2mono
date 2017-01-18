@@ -16,7 +16,7 @@ namespace Appointments.Dto
 
 		public DateTimeOffset End { get; set; }
 
-		public TimeSpan TimeZoneOffset { get; }
+		public int TimeZoneOffset { get; }
 
 		public string Subject { get; set; }
 

@@ -5,7 +5,7 @@ namespace Appointments.Aggregates
 {
 	public class AppointmentCreated : VersionedEvent
 	{
-		private Appointment Appointment { get; }
+		public Appointment Appointment { get; }
 
 		public AppointmentCreated(Appointment appt)
 		{

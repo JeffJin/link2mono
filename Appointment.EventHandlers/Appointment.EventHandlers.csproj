@@ -50,6 +50,10 @@
       <Project>{C53E9516-3ABF-4ABB-94B9-C5969D406C60}</Project>
       <Name>Appointments.ReadModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Appointments.Dto\Appointments.Dto.csproj">
+      <Project>{6BD94002-4550-4F0B-981D-FE918E723179}</Project>
+      <Name>Appointments.Dto</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

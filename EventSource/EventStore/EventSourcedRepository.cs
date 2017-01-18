@@ -23,8 +23,6 @@ namespace EventSource
 		private readonly ITextSerializer serializer;
 		private readonly Func<Guid, IEnumerable<IVersionedEvent>, T> entityFactory;
 		private readonly IMetadataProvider metadataProvider;
-		private readonly Action<T> cacheSnapshotIfApplicable;
-		private readonly Action<Guid> markCacheAsStale;
 
 		public string SourceType
 		{

@@ -59,7 +59,6 @@
     <Compile Include="EventStore\EventSourcedRepository.cs" />
     <Compile Include="EventStore\EventData.cs" />
     <Compile Include="EventStore\DictionaryExtensions.cs" />
-    <Compile Include="ReadModel\IReadModelRepository.cs" />
     <Compile Include="EventStore\EventStore.cs" />
     <Compile Include="EventStore\IEventStore.cs" />
     <Compile Include="Events\EventBus.cs" />
@@ -86,6 +85,9 @@
     <Compile Include="Messages\InMemoryMessageStore.cs" />
     <Compile Include="Commands\MessageProcessor.cs" />
     <Compile Include="ReadModel\IReadModel.cs" />
+    <Compile Include="ReadModel\IReadModelStorage.cs" />
+    <Compile Include="ReadModel\InMemeoryStorage.cs" />
+    <Compile Include="EventStore\InMemeoryStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
@@ -94,6 +96,7 @@
     <Folder Include="ReadModel\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Messages\" />
+    <Folder Include="Storage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
