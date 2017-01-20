@@ -10,22 +10,17 @@ namespace Appointments.EventHandlers
 	{
 		private Dictionary<Guid, EventData> storage = new Dictionary<Guid, EventData>();
 
-		public Task Get(Guid id)
+		public Task DeleteEvents(Guid sourceId)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task DeleteEvents(Guid rootId)
+		public Task<IEnumerable<EventData>> LoadEvents(Guid sourceId)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<EventData>> LoadEvents(Guid rootId)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<IEnumerable<IEvent>> SaveEvents(Guid rootId, IEnumerable<EventData> events)
+		public Task<IEnumerable<EventData>> SaveEvents(IEnumerable<EventData> events)
 		{
 			//if (storage.TryGetValue(model.Id, out result))
 			//{
@@ -39,19 +34,10 @@ namespace Appointments.EventHandlers
 			throw new NotImplementedException();
 		}
 
-		public Task<IEvent> SaveEvent(Guid rootId, EventData evt)
+		public Task<EventData> LoadEvent(Guid eventId)
 		{
-
-			throw new NotImplementedException();
-			//if (storage.TryGetValue(evt.Id, out result))
-			//{
-			//	throw new InvalidOperationException(String.Format("read model with same ID {0} is not allowed", model.Id));
-			//}
-			//else
-			//{
-			//	storage[model.Id] = model;
-			//	return Task.FromResult(true);
-			//}
+			var data = storage[eventId];
+			return Task.FromResult(data);
 		}
 	}
 }

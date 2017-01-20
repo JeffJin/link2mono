@@ -73,8 +73,8 @@ namespace EventSource
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="eventSourced"></param>
-		/// <param name="correlationId"></param>
+		/// <param name="eventSourced">Aggregate Object</param>
+		/// <param name="correlationId">Command ID</param>
 		/// <returns></returns>
 		public Task Save(T eventSourced, string correlationId)
 		{
@@ -82,10 +82,10 @@ namespace EventSource
 			var events = eventSourced.Events.ToArray();
 			var serialized = events.Select(e => Serialize(e, correlationId));
 
-			return eventStore.SaveEvents(eventSourced.Id, serialized).ContinueWith(task =>
+			return eventStore.SaveEvents(serialized).ContinueWith(task =>
 			{
-				//TODO change to service bus publisher
-				return eventBus.Publish(task.Result);
+				//TODO
+				return eventBus.Publish(task.Result as IEvent);
 				//cacheSnapshotIfApplicable.Invoke(eventSourced);
 			});
 		}
