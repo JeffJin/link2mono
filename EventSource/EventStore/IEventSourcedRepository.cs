@@ -19,7 +19,7 @@ namespace EventSource
 		/// </summary>
 		/// <param name="eventSourced">The entity.</param>
 		/// <param name="correlationId">A correlation id to use when publishing events.</param>
-		Task Save(T eventSourced, string correlationId);
+		Task Save(T eventSourced, Guid correlationId);
 	}
 	
 }

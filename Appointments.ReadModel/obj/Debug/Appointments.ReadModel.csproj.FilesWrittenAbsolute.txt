@@ -8,3 +8,4 @@
 /Users/Jeff/Projects/Link2/Appointments.ReadModel/bin/Debug/Appointments.Dto.dll
 /Users/Jeff/Projects/Link2/Appointments.ReadModel/bin/Debug/Appointments.Dto.dll.mdb
 /Users/Jeff/Projects/Link2/Appointments.ReadModel/bin/Debug/EntityFramework.dll
+/Users/Jeff/Projects/Link2/Appointments.ReadModel/bin/Debug/Newtonsoft.Json.dll

@@ -76,7 +76,7 @@ namespace EventSource
 		/// <param name="eventSourced">Aggregate Object</param>
 		/// <param name="correlationId">Command ID</param>
 		/// <returns></returns>
-		public Task Save(T eventSourced, string correlationId)
+		public Task Save(T eventSourced, Guid correlationId)
 		{
 			// TODO: guarantee that only incremental versions of the event are stored
 			var events = eventSourced.Events.ToArray();
@@ -85,13 +85,13 @@ namespace EventSource
 			return eventStore.SaveEvents(serialized).ContinueWith(task =>
 			{
 				//TODO
-				return eventBus.Publish(task.Result as IEvent);
+				return eventBus.Publish(serialized);
 				//cacheSnapshotIfApplicable.Invoke(eventSourced);
 			});
 		}
 
 
-		private EventData Serialize(IVersionedEvent e, string correlationId)
+		private EventData Serialize(IVersionedEvent e, Guid correlationId)
 		{
 			using (var writer = new StringWriter())
 			{
@@ -100,7 +100,7 @@ namespace EventSource
 				return new EventData
 				{
 					Version = e.Version,
-					SourceId = e.SourceId.ToString(),
+					SourceId = e.SourceId,
 					Payload = writer.ToString(),
 					SourceType = SourceType,
 					CorrelationId = correlationId,

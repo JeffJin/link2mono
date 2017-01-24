@@ -39,5 +39,39 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventSource\EventSource.csproj">
+      <Project>{D48160BC-A84E-4765-9D67-F0791BFE9A3A}</Project>
+      <Name>EventSource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Commands\Appointments.Commands.csproj">
+      <Project>{80DBC61D-E8B4-4EFA-B3C2-E4B2C4CB7338}</Project>
+      <Name>Appointments.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Aggregates\Appointments.Aggregates.csproj">
+      <Project>{CF0FE35D-8A93-46EE-B4FB-3CE274C072C0}</Project>
+      <Name>Appointments.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointment.EventHandlers\Appointment.EventHandlers.csproj">
+      <Project>{3AFFF9BA-545A-41B0-8981-0C52FD2AE241}</Project>
+      <Name>Appointment.EventHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Dto\Appointments.Dto.csproj">
+      <Project>{6BD94002-4550-4F0B-981D-FE918E723179}</Project>
+      <Name>Appointments.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Events\Appointments.Events.csproj">
+      <Project>{7D5879E0-BC3D-4947-B067-A77E29D3C5D9}</Project>
+      <Name>Appointments.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.ReadModel\Appointments.ReadModel.csproj">
+      <Project>{C53E9516-3ABF-4ABB-94B9-C5969D406C60}</Project>
+      <Name>Appointments.ReadModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Services\Appointments.Services.csproj">
+      <Project>{0C1E314B-B734-4FC8-BB65-43B58E51EBE2}</Project>
+      <Name>Appointments.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

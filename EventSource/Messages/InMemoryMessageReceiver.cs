@@ -6,9 +6,6 @@ namespace EventSource
 {
 	public class InMemoryMessageReceiver : IMessageReceiver, IDisposable
 	{
-		private readonly string name;
-		private readonly string readQuery;
-		private readonly string deleteQuery;
 		private readonly TimeSpan pollDelay;
 		private readonly object lockObject = new object();
 		private CancellationTokenSource cancellationSource;

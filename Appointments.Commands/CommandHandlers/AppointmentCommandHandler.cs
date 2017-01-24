@@ -25,7 +25,7 @@ namespace Appointments.Commands
 				}
 
 				appointmentAggregate.CreateAppointment(command.Appointment);
-				_repository.Save(appointmentAggregate, command.Id.ToString());
+				_repository.Save(appointmentAggregate, command.Id);
 			});
 		}
 	}

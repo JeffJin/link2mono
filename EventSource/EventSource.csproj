@@ -39,6 +39,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Transactions" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -48,7 +51,6 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandDispatcher.cs" />
     <Compile Include="Commands\CommandDispatcher.cs" />
-    <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventSourced.cs" />
     <Compile Include="Events\IVersionedEvent.cs" />
     <Compile Include="EventStore\IEventSourcedRepository.cs" />
@@ -64,7 +66,7 @@
     <Compile Include="Events\IEventBus.cs" />
     <Compile Include="Events\IEventDispatcher.cs" />
     <Compile Include="Events\EventDispatcher.cs" />
-    <Compile Include="Commands\CommandPorcessor.cs" />
+    <Compile Include="Commands\CommandProcessor.cs" />
     <Compile Include="AggregateRoot.cs" />
     <Compile Include="Messages\IMessageSender.cs" />
     <Compile Include="Messages\Message.cs" />
@@ -86,7 +88,9 @@
     <Compile Include="ReadModel\IReadModel.cs" />
     <Compile Include="ReadModel\IReadModelStorage.cs" />
     <Compile Include="ReadModel\InMemeoryStorage.cs" />
-    <Compile Include="EventStore\InMemeoryStorage.cs" />
+    <Compile Include="EventStore\InMemeoryEventStore.cs" />
+    <Compile Include="EventStore\IEvent.cs" />
+    <Compile Include="Messages\JsonTextSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />

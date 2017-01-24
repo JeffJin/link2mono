@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 namespace EventSource
 {
 
-	public class CommandPorcessor: MessageProcessor
+	public class CommandProcessor: MessageProcessor
 	{
 		readonly ICommandDispatcher dispatcher;
 
-		public CommandPorcessor(IMessageReceiver receiver, ITextSerializer serializer, ICommandDispatcher dispatcher): 
+		public CommandProcessor(IMessageReceiver receiver, ITextSerializer serializer, ICommandDispatcher dispatcher): 
 				base(receiver, serializer)
 		{
 			this.dispatcher = dispatcher;

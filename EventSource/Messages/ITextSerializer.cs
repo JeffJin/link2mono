@@ -19,5 +19,7 @@ namespace EventSource
 		/// </summary>
 		object Deserialize(TextReader reader);
 	}
+
+	
 	
 }

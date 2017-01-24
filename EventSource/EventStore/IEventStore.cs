@@ -8,13 +8,15 @@ namespace EventSource
 	//SQL, InMemory or ElasticSearch for read model persistence
 	public interface IEventStore
 	{
-		Task<IEnumerable<EventData>> SaveEvents(IEnumerable<EventData> events); //CancellationToken cancellationToken
+		Task<bool> SaveEvents(IEnumerable<EventData> events); //CancellationToken cancellationToken
+
+		Task<bool> SaveEvent(EventData eventData); //CancellationToken cancellationToken
 
 		Task<EventData> LoadEvent(Guid eventId); //CancellationToken cancellationToken
 
-		Task<IEnumerable<EventData>> LoadEvents(Guid sourceId); //CancellationToken cancellationToken
+		Task<IEnumerable<EventData>> LoadEvents(Guid correlationId); //CancellationToken cancellationToken
 
-		Task DeleteEvents(Guid sourceId); //CancellationToken cancellationToken
+		Task<bool> DeleteEvents(Guid correlationId); //CancellationToken cancellationToken
 		
 	}
 }
