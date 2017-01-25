@@ -49,7 +49,7 @@ namespace EventSource
 			using (var payloadWriter = new StringWriter())
 			{
 				this.serializer.Serialize(payloadWriter, evt);
-				return new Message(payloadWriter.ToString(), null);
+				return new Message(payloadWriter.ToString());
 			}
 		}
 		

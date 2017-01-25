@@ -9,20 +9,20 @@ namespace Appointments.EventHandlers
 {
 	public class InMemeoryEventStore: IEventStore
 	{
-		private List<EventData> storage = new List<EventData>();
+		private List<IEvent> storage = new List<IEvent>();
 
 		public Task<bool> DeleteEvents(Guid sourceId)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<EventData>> LoadEvents(Guid correlationId)
+		public Task<IEnumerable<IEvent>> LoadEvents(Guid correlationId)
 		{
 			var data = storage.Where(e => e.CorrelationId == correlationId);
 			return Task.FromResult(data);
 		}
 
-		public Task<bool> SaveEvents(IEnumerable<EventData> events)
+		public Task<bool> SaveEvents(IEnumerable<IEvent> events)
 		{
 			var eventTasks = new List<Task>();
 			foreach (var evt in events)
@@ -32,9 +32,9 @@ namespace Appointments.EventHandlers
 			return (System.Threading.Tasks.Task<bool>)Task.WhenAll(eventTasks);
 		}
 
-		public Task<bool> SaveEvent(EventData eventData)
+		public Task<bool> SaveEvent(IEvent eventData)
 		{
-			EventData data = storage.Find(e => e.SourceId == eventData.SourceId);
+			IEvent data = storage.Find(e => e.SourceId == eventData.SourceId);
 			if (data != null)
 			{
 				throw new InvalidOperationException(String.Format("event data with same ID {0} is not allowed", eventData.SourceId));
@@ -46,9 +46,9 @@ namespace Appointments.EventHandlers
 			}
 		}
 
-		public Task<EventData> LoadEvent(Guid eventId)
+		public Task<IEvent> LoadEvent(Guid eventId)
 		{
-			EventData data = storage.Find(e => e.SourceId == eventId);
+			IEvent data = storage.Find(e => e.SourceId == eventId);
 			return Task.FromResult(data);
 		}
 	}

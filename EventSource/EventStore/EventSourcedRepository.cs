@@ -113,7 +113,7 @@ namespace EventSource
 			}
 		}
 
-		private IVersionedEvent Deserialize(EventData @event)
+		private IVersionedEvent Deserialize(IEvent @event)
 		{
 			using (var reader = new StringReader(@event.Payload))
 			{

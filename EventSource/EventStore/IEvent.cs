@@ -11,7 +11,9 @@ namespace EventSource
 		/// <summary>
 		/// Gets the identifier of the source originating the event.
 		/// </summary>
-		Guid SourceId { get; }
+		Guid SourceId { get; set;}
+		Guid? CorrelationId { get; set;}
+		string Payload { get; set; }
 	}
 
 	

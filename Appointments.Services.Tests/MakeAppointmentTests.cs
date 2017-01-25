@@ -20,6 +20,7 @@ namespace Appointments.Services.Tests
 			IMessageSender sender = new InMemoryMessageSender();
 			ITextSerializer serializer = new JsonTextSerializer();
 			IEventStore eventStore = new InMemeoryEventStore();
+
 			IEventBus eventBus = new EventBus(sender, serializer);
 			IMetadataProvider metaProvider = new StandardMetadataProvider();
 			IReadModelStorage<AppointmentReadModel> readModelStorage = new InMemeoryStorage<AppointmentReadModel>();
@@ -37,6 +38,9 @@ namespace Appointments.Services.Tests
 			CommandProcessor commandProcessor = new CommandProcessor(receiver, serializer, cmdDispatcher); 
 			EventPorcessor eventProcessor = new EventPorcessor(receiver, serializer, evtDispatcher);
 
+			commandProcessor.Start();
+			eventProcessor.Start();
+
 			ICommandBus commandBus = new CommandBus(sender, serializer);
 
 			//Test
@@ -44,7 +48,7 @@ namespace Appointments.Services.Tests
 			commandBus.Publish(command);
 
 			//Verify
-
+			Assert.AreEqual(1, 1);
 		}
 	}
 }
