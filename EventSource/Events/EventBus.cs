@@ -17,7 +17,7 @@ namespace EventSource
 			this.sender = sender;
 		}
 
-		public Task Publish(IEnumerable<IEvent> events)
+		public Task Publish(IEnumerable<EventData> events)
 		{
 			var tasks = new List<Task>();
 
@@ -37,13 +37,13 @@ namespace EventSource
 		/// </summary>
 		/// <returns>The send.</returns>
 		/// <param name="evt">Event.</param>
-		public Task Publish(IEvent evt)
+		public Task Publish(EventData evt)
 		{
 			Message message = BuildMessage(evt);
 			return this.sender.Send(message);
 		}
 
-		private Message BuildMessage(IEvent evt)
+		private Message BuildMessage(EventData evt)
 		{
 			// TODO: should use the Command ID as a unique constraint when storing it.
 			using (var payloadWriter = new StringWriter())

@@ -19,7 +19,7 @@ namespace EventSource
 
 		public Task Send(Message message)
 		{
-			InMemoryMessageStore.MessageQueue.Enqueue(message);
+			InMemoryMessageStore.Instance.MessageQueue.Enqueue(message);
 
 			return Task.FromResult(0);
 		}

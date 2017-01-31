@@ -86,9 +86,9 @@ namespace EventSource
 
 		protected bool ReceiveMessage()
 		{
-			if (InMemoryMessageStore.MessageQueue.Peek() != null)
+			if (InMemoryMessageStore.Instance.MessageQueue.Count > 0)
 			{
-				Message message = InMemoryMessageStore.MessageQueue.Dequeue();
+				Message message = InMemoryMessageStore.Instance.MessageQueue.Dequeue();
 				this.MessageReceived(message);
 				return true;
 			}

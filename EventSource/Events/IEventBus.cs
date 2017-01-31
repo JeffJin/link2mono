@@ -6,7 +6,7 @@ namespace EventSource
 {
 	public interface IEventBus
 	{
-		Task Publish(IEvent result);
-		Task Publish(IEnumerable<IEvent> result);
+		Task Publish(EventData result);
+		Task Publish(IEnumerable<EventData> result);
 	}
 }

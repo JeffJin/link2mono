@@ -63,7 +63,7 @@ namespace EventSource
 
 		private void OnMessageReceived(Message message)
 		{
-			Trace.WriteLine(new string('-', 100));
+			Debug.WriteLine(new string('-', 100));
 
 			try
 			{
@@ -71,7 +71,7 @@ namespace EventSource
 
 				ProcessMessage(body);
 
-				Trace.WriteLine(new string('-', 100));
+				Debug.WriteLine("MessageProcessor.OnMessageReceived - " + message.ToString());
 			}
 			catch (Exception e)
 			{

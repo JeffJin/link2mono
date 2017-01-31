@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Appointments.Aggregates;
 using Appointments.Commands;
@@ -47,8 +49,13 @@ namespace Appointments.Services.Tests
 			var command = new MakeAppointment();
 			commandBus.Publish(command);
 
+			Thread.Sleep(3000);
+
+			var task = readModelStorage.GetAll(0, 10);
+			task.Wait();
+
 			//Verify
-			Assert.AreEqual(1, 1);
+			Assert.AreEqual(1, task.Result.Count());
 		}
 	}
 }

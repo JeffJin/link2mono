@@ -100,10 +100,10 @@ namespace EventSource
 				return new EventData
 				{
 					Version = e.Version,
-					SourceId = e.SourceId,
+					SourceId = e.SourceId.ToString(),
 					Payload = writer.ToString(),
 					SourceType = SourceType,
-					CorrelationId = correlationId,
+					CorrelationId = correlationId.ToString(),
 					// Standard metadata
 					AssemblyName = metadata.TryGetValue(StandardMetadata.AssemblyName),
 					Namespace = metadata.TryGetValue(StandardMetadata.Namespace),
@@ -113,7 +113,7 @@ namespace EventSource
 			}
 		}
 
-		private IVersionedEvent Deserialize(IEvent @event)
+		private IVersionedEvent Deserialize(EventData @event)
 		{
 			using (var reader = new StringReader(@event.Payload))
 			{

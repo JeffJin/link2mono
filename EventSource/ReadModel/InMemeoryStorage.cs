@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Appointments.EventHandlers;
 using EventSource;
@@ -25,7 +26,8 @@ namespace Appointments.EventHandlers
 
 		public Task<IEnumerable<T>> GetAll(int pageIndex, int pageSize)
 		{
-			throw new NotImplementedException();
+			var results = storage.Values.Skip(pageIndex * pageSize).Take(pageSize);
+			return Task.FromResult(results);
 		}
 
 		public Task Save(T model)

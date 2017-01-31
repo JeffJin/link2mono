@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace EventSource
@@ -28,7 +29,13 @@ namespace EventSource
 		/// <param name="payload">Event.</param>
 		protected override void ProcessMessage(object payload)
 		{
-			this.dispatcher.ProcessEvent((IEvent)payload);
+			Debug.WriteLine("EventPorcessor.ProcessMessage - " + payload.ToString());
+			
+			var message = (IEvent)payload;
+			if (message != null)
+			{
+				this.dispatcher.ProcessEvent(message);
+			}
 		}
 	}
 

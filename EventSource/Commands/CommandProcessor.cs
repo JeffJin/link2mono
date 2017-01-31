@@ -26,7 +26,13 @@ namespace EventSource
 		/// </summary>
 		protected override void ProcessMessage(object payload)
 		{
-			this.dispatcher.ProcessCommand((ICommand)payload);
+			Debug.WriteLine("CommandProcessor.ProcessMessage - " + payload.ToString());
+			
+			ICommand message = (ICommand)payload;
+			if (message != null)
+			{
+				this.dispatcher.ProcessCommand(message);
+			}
 		}
 	}
 

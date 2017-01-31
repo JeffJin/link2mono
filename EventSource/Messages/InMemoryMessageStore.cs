@@ -3,14 +3,26 @@ using System.Collections.Generic;
 
 namespace EventSource
 {
-	public static class InMemoryMessageStore
+	public class InMemoryMessageStore
 	{
-		public static readonly Queue<Message> MessageQueue;
+		public readonly Queue<Message> MessageQueue;
 
-		static InMemoryMessageStore()
-		{
+		private static InMemoryMessageStore instance;
+		
+		private InMemoryMessageStore() { 
 			MessageQueue = new Queue<Message>();
 		}
-
+		
+		public static InMemoryMessageStore Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new InMemoryMessageStore();
+				}
+				return instance;
+			}
+		}
 	}
 }
