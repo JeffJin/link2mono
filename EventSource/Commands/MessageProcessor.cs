@@ -67,11 +67,16 @@ namespace EventSource
 
 			try
 			{
-				var body = Deserialize(message.Body);
+				using (var reader = new StringReader(message.Body))
+				{
+					var body = this.serializer.Deserialize(reader);
 
-				ProcessMessage(body);
+					ProcessMessage(body);
 
-				Debug.WriteLine("MessageProcessor.OnMessageReceived - " + message.ToString());
+					Debug.WriteLine("MessageProcessor.OnMessageReceived - " + message.ToString());
+				}
+				//TODO Deserialization fails
+	
 			}
 			catch (Exception e)
 			{
@@ -81,23 +86,6 @@ namespace EventSource
 				// be totally overkill for this alternative debug-only implementation.
 				Trace.TraceError("An exception happened while processing message through handler/s:\r\n{0}", e);
 				Trace.TraceWarning("Error will be ignored and message receiving will continue.");
-			}
-		}
-
-		protected object Deserialize(string serializedPayload)
-		{
-			using (var reader = new StringReader(serializedPayload))
-			{
-				return this.serializer.Deserialize(reader);
-			}
-		}
-
-		protected string Serialize(object payload)
-		{
-			using (var writer = new StringWriter())
-			{
-				this.serializer.Serialize(writer, payload);
-				return writer.ToString();
 			}
 		}
 
