@@ -23,6 +23,10 @@ namespace Appointments.Commands
 				{
 					throw new DuplicatedAggregateException(command.Id, "Appointment");
 				}
+				else
+				{
+					appointmentAggregate = new AppointmentAggregate(command.Id);
+				}
 
 				appointmentAggregate.CreateAppointment(command.Appointment);
 				_repository.Save(appointmentAggregate, command.Id);

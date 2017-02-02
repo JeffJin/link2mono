@@ -21,7 +21,7 @@ namespace EventSource
 
 			if (handlers.TryGetValue(eventType, out handler))
 			{
-				((dynamic)handler).Handle(payload);
+				((dynamic)handler).Handle((dynamic)payload);
 				return true;
 			}
 			return false;

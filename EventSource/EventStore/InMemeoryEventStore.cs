@@ -29,6 +29,7 @@ namespace Appointments.EventHandlers
 			{
 				eventTasks.Add(SaveEvent(evt));
 			}
+			//TODO this line breaks
 			return (System.Threading.Tasks.Task<bool>)Task.WhenAll(eventTasks);
 		}
 

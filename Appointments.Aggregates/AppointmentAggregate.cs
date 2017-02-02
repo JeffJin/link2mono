@@ -8,9 +8,11 @@ namespace Appointments.Aggregates
 {
 	public class AppointmentAggregate: EventSourced
 	{
+		private Appointment _appointment;
 		
 		public AppointmentAggregate(Guid id) : base(id)
         {
+			SetupHandlers();
 		}
 
 		//this is requirement for EventStoreRepository 
@@ -25,6 +27,17 @@ namespace Appointments.Aggregates
 			var evt = new AppointmentCreated(info);
 
 			this.Update(evt);
+		}
+
+		private void SetupHandlers()
+		{
+			Handles<AppointmentCreated>(OnAppointmentCreated);
+		}
+
+		void OnAppointmentCreated(AppointmentCreated @event)
+		{
+			var appt = @event.Appointment;
+			this._appointment = appt;
 		}
 	}
 
