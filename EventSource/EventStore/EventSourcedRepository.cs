@@ -78,14 +78,19 @@ namespace EventSource
 		/// <returns></returns>
 		public Task Save(T eventSourced, Guid correlationId)
 		{
+			Console.WriteLine("EventSourcedRepository.Save");
 			// TODO: guarantee that only incremental versions of the event are stored
 			var events = eventSourced.Events.ToArray();
 			var serialized = events.Select(e => Serialize(e, correlationId));
 
 			return eventStore.SaveEvents(serialized).ContinueWith(task =>
 			{
+				if (task.Result)
+				{
+					return eventBus.Publish(serialized);
+				}
+				return Task.FromResult(false);
 				//TODO
-				return eventBus.Publish(serialized);
 				//cacheSnapshotIfApplicable.Invoke(eventSourced);
 			});
 		}

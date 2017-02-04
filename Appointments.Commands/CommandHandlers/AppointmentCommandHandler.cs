@@ -16,6 +16,8 @@ namespace Appointments.Commands
 
 		public void Handle(MakeAppointment command)
 		{
+			Console.WriteLine("AppointmentCommandHandler Handle " + command.ToString());
+			
 			_repository.Find(command.Id).ContinueWith((task) =>
 			{
 				var appointmentAggregate = task.Result;
@@ -29,7 +31,8 @@ namespace Appointments.Commands
 				}
 
 				appointmentAggregate.CreateAppointment(command.Appointment);
-				_repository.Save(appointmentAggregate, command.Id);
+				var saveTask = _repository.Save(appointmentAggregate, command.Id);
+				saveTask.Wait();
 			});
 		}
 	}

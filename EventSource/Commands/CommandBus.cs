@@ -18,6 +18,8 @@ namespace EventSource
 
 		public Task Publish(IEnumerable<ICommand> commands)
 		{
+			Console.WriteLine("Publish Commands");
+			
 			var tasks = new List<Task>();
 
 			foreach (var cmd in commands)
@@ -25,10 +27,7 @@ namespace EventSource
 				tasks.Add(Publish(cmd));
 			}
 
-			return Task
-				.Factory
-				.ContinueWhenAll(tasks.ToArray(), finalTask => { }
-			);
+			return Task.WhenAll(tasks.ToArray());
 		}
 
 		/// <summary>

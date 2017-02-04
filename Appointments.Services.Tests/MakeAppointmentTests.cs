@@ -35,25 +35,36 @@ namespace Appointments.Services.Tests
 			IEventDispatcher evtDispatcher = new EventDispatcher();
 			evtDispatcher.Register(new AppointmentEventHandler(readModelStorage));
 
-			IMessageReceiver receiver = new InMemoryMessageReceiver();
+			IMessageReceiver cmdReceiver = new InMemoryMessageReceiver();
 
-			CommandProcessor commandProcessor = new CommandProcessor(receiver, serializer, cmdDispatcher); 
-			EventPorcessor eventProcessor = new EventPorcessor(receiver, serializer, evtDispatcher);
+			IMessageReceiver evtReceiver = new InMemoryMessageReceiver();
 
-			commandProcessor.Start();
-			eventProcessor.Start();
+			CommandProcessor commandProcessor = new CommandProcessor(cmdReceiver, serializer, cmdDispatcher); 
+			EventPorcessor eventProcessor = new EventPorcessor(evtReceiver, serializer, evtDispatcher);
+
+
+			Task.Factory.StartNew(() =>
+			{
+				commandProcessor.Start();
+			}, TaskCreationOptions.LongRunning);
+			
+			Task.Factory.StartNew(() =>
+			{
+				eventProcessor.Start();
+			}, TaskCreationOptions.LongRunning);
 
 			ICommandBus commandBus = new CommandBus(sender, serializer);
 
 			//Test
 			var command = new MakeAppointment();
 			commandBus.Publish(command);
-
-			Thread.Sleep(3000);
-
+			Thread.Sleep(2000);
+			
 			var task = readModelStorage.GetAll(0, 10);
 			task.Wait();
 
+			Thread.Sleep(2000);
+			
 			//Verify
 			Assert.AreEqual(1, task.Result.Count());
 		}

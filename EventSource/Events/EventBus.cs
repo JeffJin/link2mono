@@ -19,6 +19,7 @@ namespace EventSource
 
 		public Task Publish(IEnumerable<EventData> events)
 		{
+			Console.WriteLine("Publish Events");
 			var tasks = new List<Task>();
 
 			foreach (var evt in events)
@@ -26,10 +27,7 @@ namespace EventSource
 				tasks.Add(Publish(evt));
 			}
 
-			return Task
-				.Factory
-				.ContinueWhenAll(tasks.ToArray(), finalTask => {}
-			);
+			return Task.WhenAll(tasks.ToArray());
 		}
 
 		/// <summary>

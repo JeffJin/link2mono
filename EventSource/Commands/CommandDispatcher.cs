@@ -16,6 +16,8 @@ namespace EventSource
 		/// </summary>
 		public bool ProcessCommand(ICommand payload)
 		{
+			Console.WriteLine("CommandDispatcher ProcessCommand");
+			
 			var commandType = payload.GetType();
 			ICommandHandler handler = null;
 

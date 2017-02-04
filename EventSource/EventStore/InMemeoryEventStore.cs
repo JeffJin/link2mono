@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Appointments.EventHandlers;
@@ -24,13 +25,22 @@ namespace Appointments.EventHandlers
 
 		public Task<bool> SaveEvents(IEnumerable<EventData> events)
 		{
-			var eventTasks = new List<Task>();
-			foreach (var evt in events)
+			try
 			{
-				eventTasks.Add(SaveEvent(evt));
+				var eventTasks = new List<Task>();
+				foreach (var evt in events)
+				{
+					eventTasks.Add(SaveEvent(evt));
+				}
+				Task.WaitAll(eventTasks.ToArray());
 			}
-			//TODO this line breaks
-			return (System.Threading.Tasks.Task<bool>)Task.WhenAll(eventTasks);
+			catch (InvalidOperationException ex)
+			{
+				Trace.WriteLine(ex.Message);
+				return Task.FromResult(false);
+			}
+
+			return Task.FromResult(true);
 		}
 
 		public Task<bool> SaveEvent(EventData eventData)

@@ -21,7 +21,7 @@ namespace EventSource
 		{
 			InMemoryMessageStore.Instance.MessageQueue.Enqueue(message);
 
-			return Task.FromResult(0);
+			return Task.FromResult(true);
 		}
 	}
 

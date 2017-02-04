@@ -16,6 +16,8 @@ namespace EventSource
 		/// </summary>
 		public bool ProcessEvent(IEvent payload)
 		{
+			Console.WriteLine("EventDispatcher ProcessEvent");
+			
 			var eventType = payload.GetType();
 			IEventHandler handler = null;
 

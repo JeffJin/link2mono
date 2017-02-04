@@ -17,6 +17,8 @@ namespace Appointments.EventHandlers
 
 		public void Handle(AppointmentCreated evt)
 		{
+			Console.WriteLine("AppointmentEventHandler Handle " + evt.ToString());
+			
 			AppointmentReadModel readModel = new AppointmentReadModel();
 			readModel.Body = evt.Appointment.Body;
 			readModel.Subject = evt.Appointment.Subject;
