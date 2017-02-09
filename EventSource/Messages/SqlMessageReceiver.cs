@@ -126,7 +126,7 @@ namespace EventSource
 				{
 					try
 					{
-						long messageId = -1;
+						Guid messageId = Guid.Empty;
 						Message message = null;
 
 						using (var command = connection.CreateCommand())
@@ -134,7 +134,8 @@ namespace EventSource
 							command.Transaction = transaction;
 							command.CommandType = CommandType.Text;
 							command.CommandText = this.readQuery;
-							((SqlCommand)command).Parameters.Add("@CurrentDate", SqlDbType.DateTime).Value = currentDate;
+                            //TODO Only retrieve current day's records?
+                            ((SqlCommand)command).Parameters.Add("@CurrentDate", SqlDbType.DateTime).Value = currentDate;
 
 							using (var reader = command.ExecuteReader())
 							{
@@ -150,7 +151,7 @@ namespace EventSource
 								var correlationId = (string)(correlationIdValue == DBNull.Value ? null : correlationIdValue);
 
 								message = new Message(body, deliveryDate, correlationId);
-								messageId = (long)reader["Id"];
+								messageId = Guid.Parse((string)reader["Id"]);
 							}
 						}
 
@@ -161,7 +162,7 @@ namespace EventSource
 							command.Transaction = transaction;
 							command.CommandType = CommandType.Text;
 							command.CommandText = this.deleteQuery;
-							((SqlCommand)command).Parameters.Add("@Id", SqlDbType.BigInt).Value = messageId;
+							((SqlCommand)command).Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = messageId;
 
 							command.ExecuteNonQuery();
 						}

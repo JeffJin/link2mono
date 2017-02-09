@@ -12,7 +12,9 @@ namespace EventSource.Tests
         {
             var connStr = @"Data Source=.\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
             var sender = new SqlMessageSender(connStr, "dbo.commands");
-            sender.Send(new Message("message body", DateTime.Today, "correlation Id"));
+            var task = sender.Send(new Message("message body", DateTime.Today, "correlation Id"));
+            task.Wait();
+
 
         }
     }
