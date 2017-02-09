@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -18,10 +19,11 @@ namespace Appointments.Services.Tests
 		[Test]
 		public void TestMakeAppointment()
 		{
-			//Setup
-			IMessageSender sender = new InMemoryMessageSender();
+            //Setup
+
+            IMessageSender sender = new SqlMessageSender("", "commands");
 			ITextSerializer serializer = new JsonTextSerializer();
-			IEventStore eventStore = new InMemeoryEventStore();
+			IEventStore eventStore = new SqlEventStore();
 
 			IEventBus eventBus = new EventBus(sender, serializer);
 			IMetadataProvider metaProvider = new StandardMetadataProvider();
@@ -35,9 +37,9 @@ namespace Appointments.Services.Tests
 			IEventDispatcher evtDispatcher = new EventDispatcher();
 			evtDispatcher.Register(new AppointmentEventHandler(readModelStorage));
 
-			IMessageReceiver cmdReceiver = new InMemoryMessageReceiver();
+			IMessageReceiver cmdReceiver = new SqlMessageReceiver(null, null, null);
 
-			IMessageReceiver evtReceiver = new InMemoryMessageReceiver();
+			IMessageReceiver evtReceiver = new SqlMessageReceiver(null, null, null);
 
 			CommandProcessor commandProcessor = new CommandProcessor(cmdReceiver, serializer, cmdDispatcher); 
 			EventPorcessor eventProcessor = new EventPorcessor(evtReceiver, serializer, evtDispatcher);

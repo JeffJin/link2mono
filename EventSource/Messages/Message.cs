@@ -6,12 +6,15 @@ namespace EventSource
 	{
 		public Message(string body, DateTime? deliveryDate = null, string correlationId = null)
 		{
+		    this.Id = Guid.NewGuid();
 			this.Body = body;
 			this.DeliveryDate = deliveryDate;
 			this.CorrelationId = correlationId;
 		}
 
-		public string Body { get; private set; }
+	    public Guid Id { get; set; }
+
+	    public string Body { get; private set; }
 
 		public string CorrelationId { get; private set; }
 

@@ -8,7 +8,7 @@ using EventSource;
 
 namespace Appointments.EventHandlers
 {
-	public class InMemeoryEventStore: IEventStore
+    public class InMemeoryEventStore: IEventStore
 	{
 		private List<EventData> storage = new List<EventData>();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace EventSource
 
 		public Task Publish(IEnumerable<ICommand> commands)
 		{
-			Console.WriteLine("Publish Commands");
+			Debug.WriteLine("Publish Commands");
 			
 			var tasks = new List<Task>();
 

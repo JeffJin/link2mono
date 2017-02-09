@@ -14,25 +14,25 @@ namespace EventSource
 	public class SqlMessageSender : IMessageSender
 	{
 		private readonly IDbConnectionFactory connectionFactory;
-		private readonly string name;
+		private readonly string connectionString;
 		private readonly string insertQuery;
 
-		public SqlMessageSender(IDbConnectionFactory connectionFactory, string name, string tableName)
+		public SqlMessageSender(string connectionString, string tableName)
 		{
-			this.connectionFactory = connectionFactory;
-			this.name = name;
-			insertQuery =
-				string.Format(
-					"INSERT INTO {0} (Body, DeliveryDate, CorrelationId) VALUES (@Body, @DeliveryDate, @CorrelationId)",
-					tableName);
-		}
+            this.connectionString = connectionString;
+            this.connectionFactory = new SqlConnectionFactory(connectionString);
+            insertQuery =
+                string.Format(
+                    "INSERT INTO {0} (Id, Body, DeliveryDate, CorrelationId) VALUES (@Id, @Body, @DeliveryDate, @CorrelationId)",
+                    tableName);
+        }
 
 		/// <summary>
 		/// Sends the specified message.
 		/// </summary>
 		public Task Send(Message message)
 		{
-			using (DbConnection connection = connectionFactory.CreateConnection(name))
+			using (DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString))
 			{
 				connection.Open();
 
@@ -50,7 +50,7 @@ namespace EventSource
 				var tasks = new List<Task>();
 				using (var scope = new TransactionScope(TransactionScopeOption.Required))
 				{
-					using (var connection = connectionFactory.CreateConnection(name))
+					using (var connection = connectionFactory.CreateConnection(this.connectionString))
 					{
 						connection.Open();
 						foreach (var message in messages)
@@ -74,12 +74,13 @@ namespace EventSource
 				command.CommandText = insertQuery;
 				command.CommandType = CommandType.Text;
 
+				command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = message.Id;
 				command.Parameters.Add("@Body", SqlDbType.NVarChar).Value = message.Body;
 				command.Parameters.Add("@DeliveryDate", SqlDbType.DateTime).Value = message.DeliveryDate.HasValue
 					? (object)message.DeliveryDate.Value
-					: DBNull.Value;
+					: DateTime.MinValue;
 				command.Parameters.Add("@CorrelationId", SqlDbType.NVarChar).Value = (object)message.CorrelationId ??
-																					 DBNull.Value;
+																					 string.Empty;
 
 				return command.ExecuteNonQueryAsync();
 			}
