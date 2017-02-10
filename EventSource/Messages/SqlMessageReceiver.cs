@@ -14,22 +14,22 @@ namespace EventSource
 	public class SqlMessageReceiver: IMessageReceiver, IDisposable
 	{
 		private readonly IDbConnectionFactory connectionFactory;
-		private readonly string name;
+		private readonly string connectionString;
 		private readonly string readQuery;
 		private readonly string deleteQuery;
 		private readonly TimeSpan pollDelay;
 		private readonly object lockObject = new object();
 		private CancellationTokenSource cancellationSource;
 
-		public SqlMessageReceiver(IDbConnectionFactory connectionFactory, string name, string tableName)
-            : this(connectionFactory, name, tableName, TimeSpan.FromMilliseconds(100))
+		public SqlMessageReceiver(IDbConnectionFactory connectionFactory, string connectionString, string tableName)
+            : this(connectionFactory, connectionString, tableName, TimeSpan.FromMilliseconds(100))
         {
 		}
 
-		public SqlMessageReceiver(IDbConnectionFactory connectionFactory, string name, string tableName, TimeSpan pollDelay)
+		public SqlMessageReceiver(IDbConnectionFactory connectionFactory, string connectionString, string tableName, TimeSpan pollDelay)
 		{
 			this.connectionFactory = connectionFactory;
-			this.name = name;
+			this.connectionString = connectionString;
 			this.pollDelay = pollDelay;
 
 			this.readQuery =
@@ -117,7 +117,7 @@ namespace EventSource
 
 		protected bool ReceiveMessage()
 		{
-			using (var connection = this.connectionFactory.CreateConnection(this.name))
+			using (var connection = this.connectionFactory.CreateConnection(this.connectionString))
 			{
 				var currentDate = GetCurrentDate();
 
@@ -147,13 +147,13 @@ namespace EventSource
 								var body = (string)reader["Body"];
 								var deliveryDateValue = reader["DeliveryDate"];
 								var deliveryDate = deliveryDateValue == DBNull.Value ? (DateTime?)null : new DateTime?((DateTime)deliveryDateValue);
-								var correlationIdValue = reader["CorrelationId"];
-								var correlationId = (string)(correlationIdValue == DBNull.Value ? null : correlationIdValue);
+								var correlationId = (string)reader["CorrelationId"];
 
 								message = new Message(body, deliveryDate, correlationId);
 								messageId = Guid.Parse((string)reader["Id"]);
+							    message.Id = messageId;
 							}
-						}
+                        }
 
 						this.MessageReceived(message);
 
