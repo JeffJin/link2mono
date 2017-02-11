@@ -1,8 +1,11 @@
-/Users/Jeff/Projects/Link2/Appointments.Services.Tests/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/Jeff/Projects/Link2/Appointments.Services.Tests/obj/Debug/.NETFramework,Version=v4.6.1.AssemblyAttribute.cs
+/Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/Appointments.Services.Tests.dll.config
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/Appointments.Services.Tests.dll.mdb
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/Appointments.Services.Tests.dll
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/obj/Debug/Appointments.Services.Tests.dll
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/obj/Debug/Appointments.Services.Tests.dll.mdb
+/Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/EntityFramework.dll
+/Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/EntityFramework.SqlServer.dll
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/nunit.framework.dll
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/EventSource.dll
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/EventSource.dll.mdb
@@ -20,5 +23,4 @@
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/Appointments.ReadModel.dll.mdb
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/Appointments.Services.dll
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/Appointments.Services.dll.mdb
-/Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/EntityFramework.dll
 /Users/Jeff/Projects/Link2/Appointments.Services.Tests/bin/Debug/Newtonsoft.Json.dll

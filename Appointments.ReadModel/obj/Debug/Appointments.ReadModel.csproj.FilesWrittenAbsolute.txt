@@ -1,4 +1,4 @@
-/Users/Jeff/Projects/Link2/Appointments.ReadModel/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/Jeff/Projects/Link2/Appointments.ReadModel/obj/Debug/.NETFramework,Version=v4.6.1.AssemblyAttribute.cs
 /Users/Jeff/Projects/Link2/Appointments.ReadModel/bin/Debug/Appointments.ReadModel.dll.mdb
 /Users/Jeff/Projects/Link2/Appointments.ReadModel/bin/Debug/Appointments.ReadModel.dll
 /Users/Jeff/Projects/Link2/Appointments.ReadModel/obj/Debug/Appointments.ReadModel.dll

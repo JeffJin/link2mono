@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Data;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Globalization;
+using NUnit.Framework;
 
 namespace EventSource.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class SqlMessageSenderTests
     {
-        [TestMethod]
+        [Test]
         public void TestSendMessage()
         {
-            var connStr = @"Data Source=.\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
+            var connStr = @"Data Source=192.168.88.79\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
             var sender = new SqlMessageSender(connStr, "dbo.commands");
             var task = sender.Send(new Message("message body", DateTime.Today, "12345678"));
             task.Wait();
