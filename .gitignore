@@ -252,3 +252,5 @@ paket-files/
 *.sln.iml
 .DS_Store
 *.userprefs
+/Appointments.Commands/Newtonsoft.Json.xml
+/Appointments.Commands/EntityFramework.xml
