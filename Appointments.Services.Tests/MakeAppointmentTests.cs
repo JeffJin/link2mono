@@ -20,8 +20,9 @@ namespace Appointments.Services.Tests
 		public void TestMakeAppointment()
 		{
             //Setup
-
-            IMessageSender sender = new SqlMessageSender("", "commands");
+            var connStr = @"Server=192.168.88.79\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
+			
+            IMessageSender sender = new SqlMessageSender(connStr, "commands");
 			ITextSerializer serializer = new JsonTextSerializer();
 			IEventStore eventStore = new SqlEventStore();
 
