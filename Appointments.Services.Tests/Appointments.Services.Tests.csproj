@@ -7,7 +7,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Appointments.Services.Tests</RootNamespace>
     <AssemblyName>Appointments.Services.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +47,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Appointments.Events\Appointments.Events.csproj">
+      <Project>{7d5879e0-bc3d-4947-b067-a77e29d3c5d9}</Project>
+      <Name>Appointments.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Appointments.Services\Appointments.Services.csproj">
+      <Project>{0c1e314b-b734-4fc8-bb65-43b58e51ebe2}</Project>
+      <Name>Appointments.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventSource.UnitTests\EventSource.UnitTests.csproj">
+      <Project>{3aff408b-ee7f-42a4-a98a-88f2e968ec87}</Project>
+      <Name>EventSource.UnitTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EventSource\EventSource.csproj">
       <Project>{D48160BC-A84E-4765-9D67-F0791BFE9A3A}</Project>
       <Name>EventSource</Name>
@@ -66,17 +79,9 @@
       <Project>{6BD94002-4550-4F0B-981D-FE918E723179}</Project>
       <Name>Appointments.Dto</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Appointments.Events\Appointments.Events.csproj">
-      <Project>{7D5879E0-BC3D-4947-B067-A77E29D3C5D9}</Project>
-      <Name>Appointments.Events</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Appointments.ReadModel\Appointments.ReadModel.csproj">
       <Project>{C53E9516-3ABF-4ABB-94B9-C5969D406C60}</Project>
       <Name>Appointments.ReadModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Appointments.Services\Appointments.Services.csproj">
-      <Project>{0C1E314B-B734-4FC8-BB65-43B58E51EBE2}</Project>
-      <Name>Appointments.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
