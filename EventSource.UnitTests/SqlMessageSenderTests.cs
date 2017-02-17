@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
@@ -15,8 +16,11 @@ namespace EventSource.Tests
         {
             var connStr = @"Data Source=.\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
             var sender = new SqlMessageSender(connStr, "dbo.commands");
-            var task = sender.Send(new Message("message body", DateTime.Today, "12345678"));
-            //task.Wait();
+            var msg1 = new Message("message body1", DateTime.Today, "12345678");
+            var msg2 = new Message("message body2", DateTime.Today, "12345678");
+            var msg3 = new Message("message body3", DateTime.Today, "12345678");
+            var task = sender.Send(new List<Message>{msg1, msg2, msg3});
+            task.Wait();
             var connectionFactory = new SqlConnectionFactory(connStr);
             var readQuery = string.Format(
                 CultureInfo.InvariantCulture,

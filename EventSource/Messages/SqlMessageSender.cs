@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -27,64 +28,82 @@ namespace EventSource
                     tableName);
         }
 
-		/// <summary>
-		/// Sends the specified message.
-		/// </summary>
-		public Task Send(Message message)
-		{
-			using (DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString))
-			{
-				connection.Open();
+	    /// <summary>
+	    /// Sends the specified message.
+	    /// </summary>
+	    public Task Send(Message message)
+	    {
+	        DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);
+	        return connection.OpenAsync().ContinueWith((task) => InsertMessage(message, connection));
+	    }
 
-				return InsertMessage(message, connection);
-			}
-		}
+	    /// <summary>
+	    /// Sends a batch of messages.
+	    /// </summary>
+	    public Task Send(IEnumerable<Message> messages)
+	    {
+	        DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);
+	        connection.Open();
+	        using (var transaction = connection.BeginTransaction())
+	        {
+	            using (var command = (SqlCommand)connection.CreateCommand())
+	            {
+                    try
+                    {
+	                    foreach (var message in messages)
+	                    {
+	                        var task = InsertMessage(message, command);
+	                        if (task.Result != 1)
+	                        {
+	                            //'handled as needed, 
+	                            //' but this snippet will throw an exception to force a rollback
+	                            throw new InvalidProgramException();
+	                        }
+	                    }
+                        transaction.Commit();
+	                }
+	                catch (Exception)
+	                {
+                        transaction.Rollback();
+	                    return Task.FromResult(-1);
+                    }
+                }
+	        }
+	        return Task.FromResult(0);
+	    }
 
-		/// <summary>
-		/// Sends a batch of messages.
-		/// </summary>
-		public Task Send(IEnumerable<Message> messages)
-		{
-			var task = Task.Factory.StartNew(() =>
-			{
-				var tasks = new List<Task>();
-				using (var scope = new TransactionScope(TransactionScopeOption.Required))
-				{
-					using (var connection = connectionFactory.CreateConnection(this.connectionString))
-					{
-						connection.Open();
-						foreach (var message in messages)
-						{
-							tasks.Add(InsertMessage(message, connection));
-						}
-					}
-					Task.WaitAll(tasks.ToArray());
-					scope.Complete();
-				}
-			});
-			return task;
-		}
-
-		[SuppressMessage("Microsoft.Security",
+	    [SuppressMessage("Microsoft.Security",
 			"CA2100:Review SQL queries for security vulnerabilities", Justification = "Does not contain user input.")]
-		private Task InsertMessage(Message message, DbConnection connection)
+		private Task<int> InsertMessage(Message message, DbConnection connection)
 		{
 			using (var command = (SqlCommand)connection.CreateCommand())
 			{
-				command.CommandText = insertQuery;
-				command.CommandType = CommandType.Text;
+			    var task = InsertMessage(message, command);
 
-				command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = message.Id;
-				command.Parameters.Add("@Body", SqlDbType.NVarChar).Value = message.Body;
-				command.Parameters.Add("@DeliveryDate", SqlDbType.DateTime).Value = message.DeliveryDate.HasValue
-					? (object)message.DeliveryDate.Value
-					: DateTime.MinValue;
-				command.Parameters.Add("@CorrelationId", SqlDbType.NVarChar).Value = (object)message.CorrelationId ??
-																					 string.Empty;
-
-				return command.ExecuteNonQueryAsync();
+				return task.ContinueWith((countTask) =>
+				{
+                    connection.Dispose();
+				    return countTask.Result;
+				});
 			}
 		}
+
+	    private Task<int> InsertMessage(Message message, SqlCommand command)
+	    {
+            command.CommandText = insertQuery;
+            command.CommandType = CommandType.Text;
+
+            command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = message.Id;
+            command.Parameters.Add("@Body", SqlDbType.NVarChar).Value = message.Body;
+            command.Parameters.Add("@DeliveryDate", SqlDbType.DateTime).Value = message.DeliveryDate.HasValue
+                ? (object)message.DeliveryDate.Value
+                : DateTime.MinValue;
+            command.Parameters.Add("@CorrelationId", SqlDbType.NVarChar).Value = (object)message.CorrelationId ??
+                                                                                 string.Empty;
+	        return command.ExecuteNonQueryAsync();
+
+	    }
+
 	}
 
 }
