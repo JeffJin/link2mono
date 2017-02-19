@@ -19,12 +19,13 @@ namespace EventSource.Tests
             var msg1 = new Message("message body1", DateTime.Today, "12345678");
             var msg2 = new Message("message body2", DateTime.Today, "12345678");
             var msg3 = new Message("message body3", DateTime.Today, "12345678");
+//            var task = sender.Send(msg1);
             var task = sender.Send(new List<Message>{msg1, msg2, msg3});
             task.Wait();
             var connectionFactory = new SqlConnectionFactory(connStr);
             var readQuery = string.Format(
                 CultureInfo.InvariantCulture,
-                @"SELECT TOP (1) 
+                @"SELECT TOP(1)
                     {0}.[Id] AS [Id], 
                     {0}.[Body] AS [Body], 
                     {0}.[DeliveryDate] AS [DeliveryDate],
@@ -56,7 +57,7 @@ namespace EventSource.Tests
                             : new DateTime?((DateTime) deliveryDateValue);
                         var correlationId = (string) reader["CorrelationId"];
 
-                        Assert.AreEqual(body, "message body");
+                        Assert.IsTrue(body.Contains("message body"));
                         Assert.AreEqual(correlationId, "12345678");
                         Assert.AreEqual(deliveryDate.Value.Date, DateTime.Today.Date);
                     }

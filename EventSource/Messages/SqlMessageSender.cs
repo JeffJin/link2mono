@@ -24,7 +24,8 @@ namespace EventSource
             this.connectionFactory = new SqlConnectionFactory(connectionString);
             insertQuery =
                 string.Format(
-                    "INSERT INTO {0} (Id, Body, DeliveryDate, CorrelationId) VALUES (@Id, @Body, @DeliveryDate, @CorrelationId)",
+                    "INSERT INTO {0} (Id, Body, DeliveryDate, CorrelationId) " +
+                    "VALUES (@Id, @Body, @DeliveryDate, @CorrelationId)",
                     tableName);
         }
 
@@ -48,11 +49,14 @@ namespace EventSource
 	        {
 	            using (var command = (SqlCommand)connection.CreateCommand())
 	            {
+	                command.Transaction = (SqlTransaction) transaction;
                     try
                     {
 	                    foreach (var message in messages)
 	                    {
-	                        var task = InsertMessage(message, command);
+	                        command.Parameters.Clear();
+
+                            var task = InsertMessage(message, command);
 	                        if (task.Result != 1)
 	                        {
 	                            //'handled as needed, 
@@ -62,7 +66,7 @@ namespace EventSource
 	                    }
                         transaction.Commit();
 	                }
-	                catch (Exception)
+	                catch (Exception ex)
 	                {
                         transaction.Rollback();
 	                    return Task.FromResult(-1);
