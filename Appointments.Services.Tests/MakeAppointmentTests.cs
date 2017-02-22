@@ -22,9 +22,9 @@ namespace Appointments.Services.Tests
             //Setup
             var connStr = @"Server=192.168.88.79\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
 			
-            IMessageSender sender = new SqlMessageSender(connStr, "commands");
+            IMessageSender sender = new SqlMessageSender(connStr, "dbo.commands");
 			ITextSerializer serializer = new JsonTextSerializer();
-			IEventStore eventStore = new SqlEventStore();
+			IEventStore eventStore = new SqlEventStore(connStr, "dbo.events");
 
 			IEventBus eventBus = new EventBus(sender, serializer);
 			IMetadataProvider metaProvider = new StandardMetadataProvider();

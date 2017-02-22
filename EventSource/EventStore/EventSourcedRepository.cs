@@ -105,10 +105,10 @@ namespace EventSource
 				return new EventData
 				{
 					Version = e.Version,
-					SourceId = e.SourceId.ToString(),
+					SourceId = e.SourceId,
 					Payload = writer.ToString(),
 					SourceType = SourceType,
-					CorrelationId = correlationId.ToString(),
+					CorrelationId = correlationId,
 					// Standard metadata
 					AssemblyName = metadata.TryGetValue(StandardMetadata.AssemblyName),
 					Namespace = metadata.TryGetValue(StandardMetadata.Namespace),

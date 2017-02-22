@@ -29,6 +29,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="SqlEventStoreTests.cs" />
     <Compile Include="SqlMessageSenderTests.cs" />
   </ItemGroup>
   <ItemGroup>

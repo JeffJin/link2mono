@@ -19,7 +19,7 @@ namespace Appointments.EventHandlers
 
 		public Task<IEnumerable<EventData>> LoadEvents(Guid correlationId)
 		{
-			var data = storage.Where(e => e.CorrelationId == correlationId.ToString());
+			var data = storage.Where(e => e.CorrelationId == correlationId);
 			return Task.FromResult(data);
 		}
 
@@ -45,7 +45,7 @@ namespace Appointments.EventHandlers
 
 		public Task<bool> SaveEvent(EventData eventData)
 		{
-			EventData data = storage.Find(e => e.SourceId.ToString() == eventData.SourceId);
+			EventData data = storage.Find(e => e.SourceId == eventData.SourceId);
 			if (data != null)
 			{
 				throw new InvalidOperationException(String.Format("event data with same ID {0} is not allowed", eventData.SourceId));
@@ -59,7 +59,7 @@ namespace Appointments.EventHandlers
 
 		public Task<EventData> LoadEvent(Guid eventId)
 		{
-			EventData data = storage.Find(e => e.SourceId == eventId.ToString());
+			EventData data = storage.Find(e => e.SourceId == eventId);
 			return Task.FromResult(data);
 		}
 	}
