@@ -26,7 +26,7 @@ namespace EventSource.Tests
                 CorrelationId = Guid.Empty,
                 Namespace = "ns",
                 SourceType = "st",
-                MetaTypeName = "tn",
+                TypeName = "tn",
                 Version = 1
             };
 //            var evt2 = new EventData();
