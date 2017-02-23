@@ -1,7 +1,7 @@
 USE [appointments]
 GO
 
-/****** Object:  Table [dbo].[events]    Script Date: 2/20/2017 1:19:41 AM ******/
+/****** Object:  Table [dbo].[events]    Script Date: 2/22/2017 11:20:48 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,11 +17,7 @@ CREATE TABLE [dbo].[events](
 	[AssemblyName] [nvarchar](50) NULL,
 	[Namespace] [nvarchar](50) NULL,
 	[FullName] [nvarchar](50) NULL,
-	[MetaTypeName] [nvarchar](50) NULL,
- CONSTRAINT [PK_events] PRIMARY KEY CLUSTERED 
-(
-	[SourceId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	[TypeName] [nvarchar](50) NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO

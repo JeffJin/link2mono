@@ -28,13 +28,14 @@ namespace Appointments.EventHandlers
             this.connectionFactory = new SqlConnectionFactory(connectionString);
             this.insertQuery =
                 string.Format(
-                    "INSERT INTO {0} (SourceId, Version, SourceType, Payload, CorrelationId, AssemblyName, Namespace, FullName, MetaTypeName) " +
-                    "VALUES (@SourceId, @Version, @SourceType, @Payload, @CorrelationId, @AssemblyName, @Namespace, @FullName, @MetaTypeName", 
+                    "INSERT INTO {0} (SourceId, Version, SourceType, Payload, CorrelationId, AssemblyName, Namespace, FullName, TypeName) " +
+                    "VALUES (@SourceId, @Version, @SourceType, @Payload, @CorrelationId, @AssemblyName, @Namespace, @FullName, @TypeName)", 
                     tableName);
+
             this.readQuery =
                 string.Format(
                     CultureInfo.InvariantCulture,
-                    @"SELECT * 
+                    @"SELECT
                     {0}.[SourceId] AS [SourceId], 
                     {0}.[Version] AS [Version], 
                     {0}.[SourceType] AS [SourceType],
@@ -43,9 +44,9 @@ namespace Appointments.EventHandlers
                     {0}.[AssemblyName] AS [AssemblyName],
                     {0}.[Namespace] AS [Namespace],
                     {0}.[FullName] AS [FullName],
-                    {0}.[MetaTypeName] AS [MetaTypeName]
+                    {0}.[TypeName] AS [TypeName]
                     FROM {0} WITH (UPDLOCK, READPAST)
-                    ORDER BY {0}.[SourceId] ASC",
+                    ORDER BY {0}.[Version] ASC",
                     tableName);
             this.deleteQuery =
                 string.Format(
@@ -142,37 +143,35 @@ namespace Appointments.EventHandlers
             {
                 command.CommandType = CommandType.Text;
                 command.CommandText = this.readQuery;
-                ((SqlCommand)command).Parameters.Add("@SourceId", SqlDbType.DateTime).Value = sourceId;
+                ((SqlCommand)command).Parameters.Add("@SourceId", SqlDbType.UniqueIdentifier).Value = sourceId;
 
                 using (var reader = command.ExecuteReader())
                 {
-                    if (!reader.Read())
+                    while (reader.Read())
                     {
-                        return Task.FromResult(list.AsEnumerable());
+                        var payload = (string)reader["Payload"];
+                        var version = (int)reader["Version"];
+                        var sourceType = (string)reader["SourceType"];
+                        var correlationId = (Guid)reader["CorrelationId"];
+                        var assemblyName = (string)reader["AssemblyName"];
+                        var nameSpace = (string)reader["Namespace"];
+                        var fullname = (string)reader["FullName"];
+                        var typename = (string)reader["TypeName"];
+
+                        var evtData = new EventData()
+                        {
+                            SourceId = sourceId,
+                            Payload = payload,
+                            Version = version,
+                            SourceType = sourceType,
+                            CorrelationId = correlationId,
+                            AssemblyName = assemblyName,
+                            Namespace = nameSpace,
+                            FullName = fullname,
+                            TypeName = typename
+                        };
+                        list.Add(evtData);
                     }
-
-                    var payload = (string)reader["Payload"];
-                    var version = (int)reader["Version"];
-                    var sourceType = (string)reader["SourceType"];
-                    var correlationId = (string)reader["CorrelationId"];
-                    var assemblyName = (string)reader["AssemblyName"];
-                    var namepsace = (string)reader["Namepsace"];
-                    var fullname = (string)reader["FullName"];
-                    var typename = (string)reader["TypeName"];
-
-                    var evtData = new EventData()
-                    {
-                        SourceId = sourceId,
-                        Payload = payload,
-                        Version = version,
-                        SourceType = sourceType,
-                        CorrelationId = Guid.Parse(correlationId),
-                        AssemblyName = assemblyName,
-                        Namespace = namepsace,
-                        FullName = fullname,
-                        TypeName = typename
-                    };
-                    list.Add(evtData);
                 }
 
                 return Task.FromResult(list.AsEnumerable());
