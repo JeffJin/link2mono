@@ -13,11 +13,13 @@ namespace EventSource.Tests
     [TestFixture]
     public class SqlEventStoreTests
     {
+        private string connStr = @"Data Source=.\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
+        private string table = "dbo.events";
+
         [Test]
         public void TestSaveEvents()
         {
-            var connStr = @"Data Source=.\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
-            var eventStore = new SqlEventStore(connStr, "dbo.events");
+            var eventStore = new SqlEventStore(connStr, table);
             var correlationId = Guid.NewGuid();
             var sourceId = Guid.NewGuid();
             var evt1 = new EventData()
@@ -63,6 +65,8 @@ namespace EventSource.Tests
             var readTask = eventStore.LoadEvents(sourceId);
             readTask.Wait();
             Assert.AreEqual(readTask.Result.Count(), 3);
+
+            eventStore.DeleteEvents(sourceId).Wait();
         }
     }
 }

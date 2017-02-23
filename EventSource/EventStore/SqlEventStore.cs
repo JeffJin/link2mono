@@ -178,21 +178,24 @@ namespace Appointments.EventHandlers
             }
         }
 
-        public Task<bool> DeleteEvents(Guid correlationId)
+        public Task<bool> DeleteEvents(Guid sourceId)
         {
             DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);
             connection.Open();
             using (var command = (SqlCommand) connection.CreateCommand())
             {
-                command.CommandText = insertQuery;
+                command.CommandText = this.deleteQuery;
                 command.CommandType = CommandType.Text;
 
-                command.Parameters.Add("@CorrelationId", SqlDbType.UniqueIdentifier).Value = correlationId;
+                command.Parameters.Add("@SourceId", SqlDbType.UniqueIdentifier).Value = sourceId;
 
-                command.ExecuteNonQuery();
+                var task = command.ExecuteNonQueryAsync();
+                return task.ContinueWith((countTask) =>
+                {
+                    connection.Dispose();
+                    return countTask.Result > 0;
+                });
             }
-
-            return Task.FromResult(true);
         }
     }
 }
