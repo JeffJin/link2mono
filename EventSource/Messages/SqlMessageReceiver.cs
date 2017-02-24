@@ -21,15 +21,15 @@ namespace EventSource
 		private readonly object lockObject = new object();
 		private CancellationTokenSource cancellationSource;
 
-		public SqlMessageReceiver(IDbConnectionFactory connectionFactory, string connectionString, string tableName)
-            : this(connectionFactory, connectionString, tableName, TimeSpan.FromMilliseconds(100))
+		public SqlMessageReceiver(string connectionString, string tableName)
+            : this(connectionString, tableName, TimeSpan.FromMilliseconds(200))
         {
 		}
 
-		public SqlMessageReceiver(IDbConnectionFactory connectionFactory, string connectionString, string tableName, TimeSpan pollDelay)
+		public SqlMessageReceiver(string connectionString, string tableName, TimeSpan pollDelay)
 		{
-			this.connectionFactory = connectionFactory;
-			this.connectionString = connectionString;
+            this.connectionFactory = new SqlConnectionFactory(connectionString);
+            this.connectionString = connectionString;
 			this.pollDelay = pollDelay;
 
 			this.readQuery =
@@ -150,7 +150,7 @@ namespace EventSource
 								var correlationId = (string)reader["CorrelationId"];
 
 								message = new Message(body, deliveryDate, correlationId);
-								messageId = Guid.Parse((string)reader["Id"]);
+								messageId = (Guid)(reader["Id"]);
 							    message.Id = messageId;
 							}
                         }

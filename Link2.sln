@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointment.EventHandlers",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource.UnitTests", "EventSource.UnitTests\EventSource.UnitTests.csproj", "{3AFF408B-EE7F-42A4-A98A-88F2E968EC87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource.TestProcessors", "EventSource.TestProcessors\EventSource.TestProcessors.csproj", "{7A35813F-01DB-4249-BA44-CA7CB3AE925C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -198,6 +200,22 @@ Global
 		{3AFF408B-EE7F-42A4-A98A-88F2E968EC87}.Release|x64.Build.0 = Release|Any CPU
 		{3AFF408B-EE7F-42A4-A98A-88F2E968EC87}.Release|x86.ActiveCfg = Release|Any CPU
 		{3AFF408B-EE7F-42A4-A98A-88F2E968EC87}.Release|x86.Build.0 = Release|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Debug|x64.Build.0 = Debug|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Debug|x86.Build.0 = Debug|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|ARM.Build.0 = Release|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|x64.ActiveCfg = Release|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|x64.Build.0 = Release|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|x86.ActiveCfg = Release|Any CPU
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,6 +231,7 @@ Global
 		{6BD94002-4550-4F0B-981D-FE918E723179} = {FEFAF14D-CBAC-4F01-91B9-B9B2BD12BFB0}
 		{3AFFF9BA-545A-41B0-8981-0C52FD2AE241} = {FEFAF14D-CBAC-4F01-91B9-B9B2BD12BFB0}
 		{3AFF408B-EE7F-42A4-A98A-88F2E968EC87} = {7AB7886F-B919-407C-905E-EE26897C9CD5}
+		{7A35813F-01DB-4249-BA44-CA7CB3AE925C} = {7AB7886F-B919-407C-905E-EE26897C9CD5}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

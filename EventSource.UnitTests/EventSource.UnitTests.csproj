@@ -30,6 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="SqlEventStoreTests.cs" />
+    <Compile Include="SqlMessageReceiverTests.cs" />
     <Compile Include="SqlMessageSenderTests.cs" />
   </ItemGroup>
   <ItemGroup>

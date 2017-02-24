@@ -76,8 +76,6 @@ namespace EventSource
 	        return Task.FromResult(0);
 	    }
 
-	    [SuppressMessage("Microsoft.Security",
-			"CA2100:Review SQL queries for security vulnerabilities", Justification = "Does not contain user input.")]
 		private Task<int> InsertMessage(Message message, DbConnection connection)
 		{
 			using (var command = (SqlCommand)connection.CreateCommand())
@@ -92,7 +90,9 @@ namespace EventSource
 			}
 		}
 
-	    private Task<int> InsertMessage(Message message, SqlCommand command)
+        [SuppressMessage("Microsoft.Security",
+            "CA2100:Review SQL queries for security vulnerabilities", Justification = "Does not contain user input.")]
+        private Task<int> InsertMessage(Message message, SqlCommand command)
 	    {
             command.CommandText = insertQuery;
             command.CommandType = CommandType.Text;

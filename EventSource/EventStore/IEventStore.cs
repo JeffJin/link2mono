@@ -12,11 +12,10 @@ namespace EventSource
 
 		Task<bool> SaveEvent(EventData eventData); //CancellationToken cancellationToken
 
-		Task<EventData> LoadEvent(Guid eventId); //CancellationToken cancellationToken
-
 		Task<IEnumerable<EventData>> LoadEvents(Guid correlationId); //CancellationToken cancellationToken
 
-		Task<bool> DeleteEvents(Guid correlationId); //CancellationToken cancellationToken
+        //events should not be deleted for replay purpose
+//		Task<bool> DeleteEvents(Guid correlationId); //CancellationToken cancellationToken
 		
 	}
 }

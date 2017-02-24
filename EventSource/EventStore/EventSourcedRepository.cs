@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -78,7 +79,7 @@ namespace EventSource
 		/// <returns></returns>
 		public Task Save(T eventSourced, Guid correlationId)
 		{
-			Console.WriteLine("EventSourcedRepository.Save");
+			Debug.WriteLine("EventSourcedRepository.Save");
 			// TODO: guarantee that only incremental versions of the event are stored
 			var events = eventSourced.Events.ToArray();
 			var serialized = events.Select(e => Serialize(e, correlationId));

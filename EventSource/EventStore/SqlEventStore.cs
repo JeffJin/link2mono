@@ -129,11 +129,6 @@ namespace Appointments.EventHandlers
             return connection.OpenAsync().ContinueWith((task) => InsertEvent(eventData, connection).Result);
         }
 
-        public Task<EventData> LoadEvent(Guid eventId)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<IEnumerable<EventData>> LoadEvents(Guid sourceId)
         {
             DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);
@@ -178,6 +173,12 @@ namespace Appointments.EventHandlers
             }
         }
 
+        /// <summary>
+        /// Warning: this should only be used for testing purpose.
+        /// Events in production should never be deleted or updated
+        /// </summary>
+        /// <param name="sourceId">Aggregate ID</param>
+        /// <returns></returns>
         public Task<bool> DeleteEvents(Guid sourceId)
         {
             DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);

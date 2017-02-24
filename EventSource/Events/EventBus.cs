@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EventSource
@@ -19,16 +21,10 @@ namespace EventSource
 
 		public Task Publish(IEnumerable<EventData> events)
 		{
-			Console.WriteLine("Publish Events");
-			var tasks = new List<Task>();
-
-			foreach (var evt in events)
-			{
-				tasks.Add(Publish(evt));
-			}
-
-			return Task.WhenAll(tasks.ToArray());
-		}
+			Debug.WriteLine("Publish Events");
+            var messages = events.Select(evt => BuildMessage(evt));
+            return this.sender.Send(messages);
+        }
 
 		/// <summary>
 		/// 
