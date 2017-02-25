@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EventSource
@@ -20,15 +21,8 @@ namespace EventSource
 		public Task Publish(IEnumerable<ICommand> commands)
 		{
 			Debug.WriteLine("Publish Commands");
-			
-			var tasks = new List<Task>();
-
-			foreach (var cmd in commands)
-			{
-				tasks.Add(Publish(cmd));
-			}
-
-			return Task.WhenAll(tasks.ToArray());
+		    var messages = commands.Select(BuildMessage);
+		    return this.sender.Send(messages);
 		}
 
 		/// <summary>

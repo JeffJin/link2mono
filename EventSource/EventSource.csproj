@@ -28,6 +28,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="EntityFramework">
@@ -93,6 +94,7 @@
     <Compile Include="EventStore\InMemeoryEventStore.cs" />
     <Compile Include="EventStore\IEvent.cs" />
     <Compile Include="Messages\JsonTextSerializer.cs" />
+    <Compile Include="ReadModel\SqlReadModelStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Storage\" />

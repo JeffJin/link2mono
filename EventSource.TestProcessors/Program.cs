@@ -8,14 +8,11 @@ namespace EventSource.TestProcessors
 {
     class Program
     {
+        static string connStr = @"Data Source=.\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
+
         static void Main(string[] args)
         {
-            var connStr = @"Data Source=.\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
-            var receiver = new SqlMessageReceiver(connStr, "dbo.commands");
-            receiver.Start((message) =>
-            {
-                Console.WriteLine(message.Body);
-            });
+            SqlMessageReceiverTest.RunReiver(connStr);
 
             Console.ReadLine();
         }
