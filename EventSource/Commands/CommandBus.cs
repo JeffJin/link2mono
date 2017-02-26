@@ -43,7 +43,7 @@ namespace EventSource
 			using (var payloadWriter = new StringWriter())
 			{
 				this.serializer.Serialize(payloadWriter, command);
-				return new Message(payloadWriter.ToString());
+				return new Message(payloadWriter.ToString(), DateTime.UtcNow, command.Id.ToString());
 			}
 		}
 	}

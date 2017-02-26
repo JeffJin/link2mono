@@ -23,12 +23,9 @@ namespace Appointments.Dto
 		public string Body { get; set; }
 	
 		//email address of the organizer
-		public string Organizer { get; }
+		public string Organizer { get; set; }
 
-		public IList<Person> Attendees { get; }
-
-
-		
+		public IList<Person> Attendees { get; set; }
 	}
 
 	

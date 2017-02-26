@@ -12,7 +12,7 @@ namespace EventSource.TestProcessors
 
         static void Main(string[] args)
         {
-            SqlMessageReceiverTest.RunReiver(connStr);
+            CommandProcessorTest.Run(connStr);
 
             Console.ReadLine();
         }
