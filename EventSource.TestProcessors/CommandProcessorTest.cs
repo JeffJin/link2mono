@@ -14,7 +14,7 @@ namespace EventSource.TestProcessors
          public static void Run(string connStr)
          {
 
-            IMessageSender sender = new SqlMessageSender(connStr, "dbo.commands");
+            IMessageSender sender = new SqlMessageSender(connStr, "dbo.messages");
             ITextSerializer serializer = new JsonTextSerializer();
             IEventStore eventStore = new SqlEventStore(connStr, "dbo.events");
 
@@ -26,7 +26,7 @@ namespace EventSource.TestProcessors
             ICommandDispatcher cmdDispatcher = new CommandDispatcher();
             cmdDispatcher.Register(new AppointmentCommandHandler(repo));
 
-            IMessageReceiver cmdReceiver = new SqlMessageReceiver(connStr, "dbo.commands");
+            IMessageReceiver cmdReceiver = new SqlMessageReceiver(connStr, "dbo.messages");
 
             CommandProcessor commandProcessor = new CommandProcessor(cmdReceiver, serializer, cmdDispatcher);
             commandProcessor.Start();

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventSource.TestProcessors;
 
-namespace EventSource.TestProcessors
+namespace EventSource.TestEventProcessor
 {
     class Program
     {
@@ -12,7 +13,7 @@ namespace EventSource.TestProcessors
 
         static void Main(string[] args)
         {
-            CommandProcessorTest.Run(connStr);
+            EventProcessorTest.Run(connStr);
 
             Console.ReadLine();
         }

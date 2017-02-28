@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource.UnitTests", "Ev
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource.TestProcessors", "EventSource.TestProcessors\EventSource.TestProcessors.csproj", "{7A35813F-01DB-4249-BA44-CA7CB3AE925C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSource.TestEventProcessor", "EventSource.TestEventProcessor\EventSource.TestEventProcessor.csproj", "{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -216,6 +218,22 @@ Global
 		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|x64.Build.0 = Release|Any CPU
 		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|x86.ActiveCfg = Release|Any CPU
 		{7A35813F-01DB-4249-BA44-CA7CB3AE925C}.Release|x86.Build.0 = Release|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Debug|x64.Build.0 = Debug|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Debug|x86.Build.0 = Debug|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Release|ARM.Build.0 = Release|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Release|x64.ActiveCfg = Release|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Release|x64.Build.0 = Release|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Release|x86.ActiveCfg = Release|Any CPU
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -232,6 +250,7 @@ Global
 		{3AFFF9BA-545A-41B0-8981-0C52FD2AE241} = {FEFAF14D-CBAC-4F01-91B9-B9B2BD12BFB0}
 		{3AFF408B-EE7F-42A4-A98A-88F2E968EC87} = {7AB7886F-B919-407C-905E-EE26897C9CD5}
 		{7A35813F-01DB-4249-BA44-CA7CB3AE925C} = {7AB7886F-B919-407C-905E-EE26897C9CD5}
+		{A88F3D47-CF16-429C-BD59-FD4D17AF67E4} = {7AB7886F-B919-407C-905E-EE26897C9CD5}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

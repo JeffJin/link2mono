@@ -4,7 +4,7 @@ using System.IO;
 
 namespace EventSource
 {
-	public abstract class MessageProcessor
+	public abstract class MessageProcessor: IDisposable
 	{
 		private const int MaxProcessingRetries = 5;
 		private bool disposed;

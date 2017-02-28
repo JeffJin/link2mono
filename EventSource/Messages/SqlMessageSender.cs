@@ -22,7 +22,7 @@ namespace EventSource
 		{
             this.connectionString = connectionString;
             this.connectionFactory = new SqlConnectionFactory(connectionString);
-            insertQuery =
+            this.insertQuery =
                 string.Format(
                     "INSERT INTO {0} (Id, Body, DeliveryDate, CorrelationId) " +
                     "VALUES (@Id, @Body, @DeliveryDate, @CorrelationId)",

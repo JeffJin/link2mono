@@ -7,7 +7,7 @@ namespace EventSource
 {
 	//TODO send the messages and notify the handlers
 
-	public class MessageReceiver : IMessageReceiver
+	public class AyncQueueMessageReceiver : IMessageReceiver
 	{
 		public void Start(Action<Message> action)
 		{

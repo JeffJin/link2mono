@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,8 +16,19 @@ namespace EventSource
 
 		Task<IEnumerable<EventData>> LoadEvents(Guid correlationId); //CancellationToken cancellationToken
 
+        //Load all events (TODO: need to load partially or create snapshot)
+        IEnumerable<EventData> LoadEvents(); //CancellationToken cancellationToken
+
         //events should not be deleted for replay purpose
 //		Task<bool> DeleteEvents(Guid correlationId); //CancellationToken cancellationToken
 		
 	}
+
+    public interface ISqlEventStore : IEventStore
+    {
+        DbConnection GetConnection();
+
+        EventData LoadNextEvent(DbTransaction transaction);
+        void MarkEventAsProcessed(EventData eventData, DbTransaction transaction);
+    }
 }

@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventStore\SqlEventStore.cs" />
+    <Compile Include="Events\SqlEventReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands\CommandBus.cs" />
     <Compile Include="Commands\ICommandBus.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="Messages\InMemoryMessageSender.cs" />
     <Compile Include="Messages\AyncQueueMessageSender.cs" />
     <Compile Include="Messages\IMessageReceiver.cs" />
-    <Compile Include="Messages\MessageReceiver.cs" />
+    <Compile Include="Messages\AyncQueueMessageReceiver.cs" />
     <Compile Include="Messages\InMemoryMessageReceiver.cs" />
     <Compile Include="Messages\MessageReceivedEventArgs.cs" />
     <Compile Include="Messages\SqlMessageReceiver.cs" />

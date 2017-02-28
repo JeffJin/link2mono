@@ -23,7 +23,12 @@ namespace Appointments.EventHandlers
 			return Task.FromResult(data);
 		}
 
-		public Task<bool> SaveEvents(IEnumerable<EventData> events)
+        public IEnumerable<EventData> LoadEvents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SaveEvents(IEnumerable<EventData> events)
 		{
 			try
 			{

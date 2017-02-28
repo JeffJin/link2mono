@@ -21,6 +21,7 @@ namespace EventSource
 		public string Namespace { get; set; }
 		public string FullName { get; set; }
 		public string TypeName { get; set; }
+	    public DateTime? ProcessedOn { get; set; }
 	}
 //
 //    public class Event

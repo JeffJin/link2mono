@@ -11,7 +11,7 @@ using EventSource;
 
 namespace Appointments.EventHandlers
 {
-    public class SqlEventStore : IEventStore
+    public class SqlEventStore : ISqlEventStore
     {
         private string connectionString;
         private SqlConnectionFactory connectionFactory;
@@ -19,6 +19,7 @@ namespace Appointments.EventHandlers
         private string readQuery;
         private string tableName;
         private string deleteQuery  ;
+        private string readTopItemQuery;
 
         public SqlEventStore(string connectionString, string tableName)
         {
@@ -32,6 +33,23 @@ namespace Appointments.EventHandlers
                     "VALUES (@SourceId, @Version, @SourceType, @Payload, @CorrelationId, @AssemblyName, @Namespace, @FullName, @TypeName)", 
                     tableName);
 
+            this.readTopItemQuery =
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    @"SELECT TOP(1)
+                    {0}.[SourceId] AS [SourceId], 
+                    {0}.[Version] AS [Version], 
+                    {0}.[SourceType] AS [SourceType],
+                    {0}.[Payload] AS [Payload],
+                    {0}.[CorrelationId] AS [CorrelationId],
+                    {0}.[AssemblyName] AS [AssemblyName],
+                    {0}.[Namespace] AS [Namespace],
+                    {0}.[FullName] AS [FullName],
+                    {0}.[TypeName] AS [TypeName]
+                    FROM {0} WITH (UPDLOCK, READPAST)
+                    WHERE ProcessedOn = @ProcessedOn
+                    ORDER BY {0}.[Version] ASC",
+                    tableName);
             this.readQuery =
                 string.Format(
                     CultureInfo.InvariantCulture,
@@ -87,10 +105,66 @@ namespace Appointments.EventHandlers
             }
         }
 
-    
-        public Task<bool> SaveEvents(IEnumerable<EventData> events)
+        public DbConnection GetConnection()
         {
             DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);
+            return connection;
+        }
+
+        public EventData LoadNextEvent(DbTransaction transaction)
+        {
+            DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);
+            connection.Open();
+            var eventData = new EventData();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = this.readTopItemQuery;
+                ((SqlCommand)command).Parameters.Add("@ProcessedOn", SqlDbType.DateTime).Value = DBNull.Value;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var sourceId = (Guid)reader["SourceId"];
+                        var payload = (string)reader["Payload"];
+                        var version = (int)reader["Version"];
+                        var sourceType = (string)reader["SourceType"];
+                        var correlationId = (Guid)reader["CorrelationId"];
+                        var assemblyName = (string)reader["AssemblyName"];
+                        var nameSpace = (string)reader["Namespace"];
+                        var fullname = (string)reader["FullName"];
+                        var typename = (string)reader["TypeName"];
+                        var processedOn = (DateTime)reader["ProcessedOn"];
+
+                        eventData = new EventData()
+                        {
+                            SourceId = sourceId,
+                            Payload = payload,
+                            Version = version,
+                            SourceType = sourceType,
+                            CorrelationId = correlationId,
+                            AssemblyName = assemblyName,
+                            Namespace = nameSpace,
+                            FullName = fullname,
+                            TypeName = typename,
+                            ProcessedOn = processedOn
+                        };
+                    }
+                }
+
+                return eventData;
+            }
+        }
+
+        public void MarkEventAsProcessed(EventData eventData, DbTransaction transaction)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SaveEvents(IEnumerable<EventData> events)
+        {
+            DbConnection connection = this.GetConnection();
             connection.Open();
             using (var transaction = connection.BeginTransaction())
             {
@@ -170,6 +244,50 @@ namespace Appointments.EventHandlers
                 }
 
                 return Task.FromResult(list.AsEnumerable());
+            }
+        }
+
+        public IEnumerable<EventData> LoadEvents()
+        {
+            DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);
+            connection.Open();
+            var list = new List<EventData>();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = this.readQuery;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var sourceId = (Guid)reader["SourceId"];
+                        var payload = (string)reader["Payload"];
+                        var version = (int)reader["Version"];
+                        var sourceType = (string)reader["SourceType"];
+                        var correlationId = (Guid)reader["CorrelationId"];
+                        var assemblyName = (string)reader["AssemblyName"];
+                        var nameSpace = (string)reader["Namespace"];
+                        var fullname = (string)reader["FullName"];
+                        var typename = (string)reader["TypeName"];
+
+                        var evtData = new EventData()
+                        {
+                            SourceId = sourceId,
+                            Payload = payload,
+                            Version = version,
+                            SourceType = sourceType,
+                            CorrelationId = correlationId,
+                            AssemblyName = assemblyName,
+                            Namespace = nameSpace,
+                            FullName = fullname,
+                            TypeName = typename
+                        };
+                        list.Add(evtData);
+                    }
+                }
+
+                return list.AsEnumerable();
             }
         }
 
