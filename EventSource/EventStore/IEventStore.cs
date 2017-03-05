@@ -28,7 +28,7 @@ namespace EventSource
     {
         DbConnection GetConnection();
 
-        EventData LoadNextEvent(DbTransaction transaction);
+        EventData LoadNextEvent(DbConnection connection, DbTransaction transaction);
         void MarkEventAsProcessed(EventData eventData, DbTransaction transaction);
     }
 }

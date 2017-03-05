@@ -4,7 +4,7 @@ namespace EventSource
 {
 	//TODO send the messages and notify the handlers
 	
-	public interface IMessageReceiver
+	public interface IMessageReceiver: IDisposable
 	{
 		/// <summary>
 		/// Stops the listener.
@@ -16,6 +16,4 @@ namespace EventSource
 		/// </summary>
 		void Start(Action<Message> processMessage);
 	}
-	
-	
 }

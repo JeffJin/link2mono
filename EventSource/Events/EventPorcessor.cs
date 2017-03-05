@@ -13,11 +13,11 @@ namespace EventSource
         private const int MaxProcessingRetries = 5;
         private bool disposed;
         private bool started = false;
-        private readonly IMessageReceiver receiver;
+        private readonly IEventReceiver receiver;
         private readonly ITextSerializer serializer;
         private readonly object lockObject = new object();
 
-        public EventProcessor(IMessageReceiver receiver, ITextSerializer serializer,
+        public EventProcessor(IEventReceiver receiver, ITextSerializer serializer,
 		                      IEventDispatcher dispatcher)
 		{
             this.receiver = receiver;
@@ -36,16 +36,20 @@ namespace EventSource
 		/// </summary>
 		/// <returns>The send.</returns>
 		/// <param name="payload">Event.</param>
-		private void ProcessMessage(object payload)
+		private void ProcessMessage(EventData data)
 		{
-			Debug.WriteLine("EventPorcessor.ProcessMessage - " + payload.ToString());
-			
-			var message = (IEvent)payload;
-			if (message != null)
-			{
-				this.dispatcher.ProcessEvent(message);
-			}
+			Debug.WriteLine("EventPorcessor.ProcessMessage - " + data.ToString());
+		    IEvent evt = Deserialize(data);
+            this.dispatcher.ProcessEvent(evt);
 		}
+
+        private IVersionedEvent Deserialize(EventData @event)
+        {
+            using (var reader = new StringReader(@event.Payload))
+            {
+                return (IVersionedEvent)this.serializer.Deserialize(reader);
+            }
+        }
 
         /// <summary>
 		/// Starts the listener.
@@ -78,22 +82,13 @@ namespace EventSource
             }
         }
 
-        private void OnMessageReceived(Message message)
+        private void OnMessageReceived(EventData message)
         {
             Debug.WriteLine(new string('-', 100));
 
             try
             {
-                using (var reader = new StringReader(message.Body))
-                {
-                    var body = this.serializer.Deserialize(reader);
-
-                    this.ProcessMessage(body);
-
-                    Debug.WriteLine("MessageProcessor.OnMessageReceived - " + message.ToString());
-                }
-                //TODO Deserialization fails
-
+                this.ProcessMessage(message);
             }
             catch (Exception e)
             {

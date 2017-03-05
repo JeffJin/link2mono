@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EventSource
 {
-	public class SqlEventReceiver: IMessageReceiver, IDisposable
+	public class SqlEventReceiver: IEventReceiver
 	{
 	    private readonly ISqlEventStore _eventStore;
 	    private readonly TimeSpan _pollDelay;
@@ -64,11 +64,6 @@ namespace EventSource
 			}
 		}
 
-	    public void Start(Action<Message> processMessage)
-	    {
-	        throw new NotImplementedException();
-	    }
-
 	    public void Dispose()
 		{
 			Dispose(true);
@@ -103,14 +98,12 @@ namespace EventSource
 		{
 			using (var connection = this._eventStore.GetConnection())
 			{
-				var currentDate = GetCurrentDate();
-
 				connection.Open();
 				using (var transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted))
 				{
 					try
 					{
-					    var eventData = this._eventStore.LoadNextEvent(transaction);
+					    var eventData = this._eventStore.LoadNextEvent(connection, transaction);
 
                         this.MessageReceived(eventData);
 
@@ -118,7 +111,7 @@ namespace EventSource
 
 						transaction.Commit();
 					}
-					catch (Exception)
+					catch (Exception ex)
 					{
 						try
 						{

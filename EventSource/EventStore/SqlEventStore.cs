@@ -19,6 +19,7 @@ namespace Appointments.EventHandlers
         private string readQuery;
         private string tableName;
         private string deleteQuery  ;
+        private string processEventsCmd;
         private string readTopItemQuery;
 
         public SqlEventStore(string connectionString, string tableName)
@@ -33,6 +34,12 @@ namespace Appointments.EventHandlers
                     "VALUES (@SourceId, @Version, @SourceType, @Payload, @CorrelationId, @AssemblyName, @Namespace, @FullName, @TypeName)", 
                     tableName);
 
+            this.processEventsCmd =
+                string.Format(
+                    "UPDATE {0} SET ProcessedOn=@ProcessedOn " +
+                    "WHERE SourceId=@SourceId", 
+                    tableName);
+
             this.readTopItemQuery =
                 string.Format(
                     CultureInfo.InvariantCulture,
@@ -45,7 +52,8 @@ namespace Appointments.EventHandlers
                     {0}.[AssemblyName] AS [AssemblyName],
                     {0}.[Namespace] AS [Namespace],
                     {0}.[FullName] AS [FullName],
-                    {0}.[TypeName] AS [TypeName]
+                    {0}.[TypeName] AS [TypeName],
+                    {0}.[ProcessedOn] AS [ProcessedOn]
                     FROM {0} WITH (UPDLOCK, READPAST)
                     WHERE ProcessedOn = @ProcessedOn
                     ORDER BY {0}.[Version] ASC",
@@ -62,7 +70,8 @@ namespace Appointments.EventHandlers
                     {0}.[AssemblyName] AS [AssemblyName],
                     {0}.[Namespace] AS [Namespace],
                     {0}.[FullName] AS [FullName],
-                    {0}.[TypeName] AS [TypeName]
+                    {0}.[TypeName] AS [TypeName],
+                    {0}.[ProcessedOn] AS [ProcessedOn]
                     FROM {0} WITH (UPDLOCK, READPAST)
                     ORDER BY {0}.[Version] ASC",
                     tableName);
@@ -87,6 +96,7 @@ namespace Appointments.EventHandlers
             command.Parameters.Add("@Namespace", SqlDbType.NVarChar).Value = evt.Namespace;
             command.Parameters.Add("@FullName", SqlDbType.NVarChar).Value = evt.FullName;
             command.Parameters.Add("@TypeName", SqlDbType.NVarChar).Value = evt.TypeName;
+            command.Parameters.Add("@ProcessedOn", SqlDbType.DateTime).Value = evt.ProcessedOn;
 
             return command.ExecuteNonQueryAsync();
         }
@@ -111,13 +121,12 @@ namespace Appointments.EventHandlers
             return connection;
         }
 
-        public EventData LoadNextEvent(DbTransaction transaction)
+        public EventData LoadNextEvent(DbConnection connection, DbTransaction transaction)
         {
-            DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);
-            connection.Open();
-            var eventData = new EventData();
+            EventData eventData = null;
             using (var command = connection.CreateCommand())
             {
+                command.Transaction = transaction;
                 command.CommandType = CommandType.Text;
                 command.CommandText = this.readTopItemQuery;
                 ((SqlCommand)command).Parameters.Add("@ProcessedOn", SqlDbType.DateTime).Value = DBNull.Value;
@@ -135,7 +144,7 @@ namespace Appointments.EventHandlers
                         var nameSpace = (string)reader["Namespace"];
                         var fullname = (string)reader["FullName"];
                         var typename = (string)reader["TypeName"];
-                        var processedOn = (DateTime)reader["ProcessedOn"];
+                        var processedOn = (DateTime?)reader["ProcessedOn"];
 
                         eventData = new EventData()
                         {
@@ -159,7 +168,17 @@ namespace Appointments.EventHandlers
 
         public void MarkEventAsProcessed(EventData eventData, DbTransaction transaction)
         {
-            throw new NotImplementedException();
+            DbConnection connection = this.connectionFactory.CreateConnection(this.connectionString);
+            connection.Open();
+            using (var command = connection.CreateCommand())
+            {
+                command.Transaction = transaction;
+                command.CommandType = CommandType.Text;
+                command.CommandText = this.processEventsCmd;
+                ((SqlCommand)command).Parameters.Add("@ProcessedOn", SqlDbType.DateTime).Value = DateTime.UtcNow;
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public Task<bool> SaveEvents(IEnumerable<EventData> events)
@@ -270,6 +289,7 @@ namespace Appointments.EventHandlers
                         var nameSpace = (string)reader["Namespace"];
                         var fullname = (string)reader["FullName"];
                         var typename = (string)reader["TypeName"];
+                        var processedOn = (DateTime?)reader["ProcessedOn"];
 
                         var evtData = new EventData()
                         {
@@ -281,7 +301,8 @@ namespace Appointments.EventHandlers
                             AssemblyName = assemblyName,
                             Namespace = nameSpace,
                             FullName = fullname,
-                            TypeName = typename
+                            TypeName = typename,
+                            ProcessedOn = processedOn
                         };
                         list.Add(evtData);
                     }

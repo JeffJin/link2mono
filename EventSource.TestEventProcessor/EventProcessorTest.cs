@@ -27,7 +27,7 @@ namespace EventSource.TestProcessors
             IEventDispatcher evtDispatcher = new EventDispatcher();
             evtDispatcher.Register(new AppointmentEventHandler(readModelStorage));
             
-            IMessageReceiver evtReceiver = new SqlEventReceiver(new SqlEventStore(connStr, "dbo.events"));
+            var evtReceiver = new SqlEventReceiver(new SqlEventStore(connStr, "dbo.events"));
             
             var eventProcessor = new EventProcessor(evtReceiver, serializer, evtDispatcher);
             			
