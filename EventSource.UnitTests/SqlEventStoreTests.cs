@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Globalization;
 using System.Linq;
 using Appointments.EventHandlers;
@@ -32,7 +33,8 @@ namespace EventSource.Tests
                 Namespace = "ns",
                 SourceType = "st",
                 TypeName = "tn",
-                Version = 1
+                Version = 1,
+                ProcessedOn = null
             };
             var evt2 = new EventData()
             {
@@ -44,7 +46,8 @@ namespace EventSource.Tests
                 Namespace = "ns",
                 SourceType = "st",
                 TypeName = "tn",
-                Version = 2
+                Version = 2,
+                ProcessedOn = null
             };
             var evt3 = new EventData()
             {
@@ -56,7 +59,8 @@ namespace EventSource.Tests
                 Namespace = "ns",
                 SourceType = "st",
                 TypeName = "tn",
-                Version = 3
+                Version = 3,
+                ProcessedOn = DateTime.Today
             };
 //            var task = eventStore.SaveEvent(evt1);
             var task = eventStore.SaveEvents(new List<EventData> {evt1, evt2, evt3});

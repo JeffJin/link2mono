@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,8 +31,8 @@ namespace Appointments.EventHandlers
             this.connectionFactory = new SqlConnectionFactory(connectionString);
             this.insertQuery =
                 string.Format(
-                    "INSERT INTO {0} (SourceId, Version, SourceType, Payload, CorrelationId, AssemblyName, Namespace, FullName, TypeName) " +
-                    "VALUES (@SourceId, @Version, @SourceType, @Payload, @CorrelationId, @AssemblyName, @Namespace, @FullName, @TypeName)", 
+                    "INSERT INTO {0} (SourceId, Version, SourceType, Payload, CorrelationId, AssemblyName, Namespace, FullName, TypeName, ProcessedOn) " +
+                    "VALUES (@SourceId, @Version, @SourceType, @Payload, @CorrelationId, @AssemblyName, @Namespace, @FullName, @TypeName, @ProcessedOn)", 
                     tableName);
 
             this.processEventsCmd =
@@ -96,7 +97,14 @@ namespace Appointments.EventHandlers
             command.Parameters.Add("@Namespace", SqlDbType.NVarChar).Value = evt.Namespace;
             command.Parameters.Add("@FullName", SqlDbType.NVarChar).Value = evt.FullName;
             command.Parameters.Add("@TypeName", SqlDbType.NVarChar).Value = evt.TypeName;
-            command.Parameters.Add("@ProcessedOn", SqlDbType.DateTime).Value = evt.ProcessedOn;
+            if (evt.ProcessedOn.HasValue)
+            {
+                command.Parameters.Add("@ProcessedOn", SqlDbType.DateTime).Value =evt.ProcessedOn;
+            }
+            else
+            {
+                command.Parameters.Add("@ProcessedOn", SqlDbType.DateTime).Value = SqlDateTime.Null;
+            }
 
             return command.ExecuteNonQueryAsync();
         }

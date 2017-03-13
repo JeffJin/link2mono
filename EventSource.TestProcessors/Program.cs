@@ -14,6 +14,13 @@ namespace EventSource.TestProcessors
 
         static void Main(string[] args)
         {
+            StartMessageReceiver();
+
+            Console.ReadLine();
+        }
+
+        private static void StartEventReceiver()
+        {
             var eventStore = new SqlEventStore(connStr, table);
             var receiver = new SqlEventReceiver(eventStore);
             receiver.Start((EventData evt) =>
@@ -21,7 +28,15 @@ namespace EventSource.TestProcessors
                 Console.WriteLine(evt.Payload);
             });
 
-            Console.ReadLine();
+        }
+        private static void StartMessageReceiver()
+        {
+            SqlMessageReceiverTest.RunReiver(connStr);
+        }
+
+        private static void StartCommandProcessor()
+        {
+            CommandProcessorTest.Run(connStr);
         }
     }
 }

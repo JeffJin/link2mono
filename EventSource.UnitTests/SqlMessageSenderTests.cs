@@ -15,7 +15,7 @@ namespace EventSource.Tests
         public void TestSendMessage()
         {
             var connStr = @"Data Source=.\SQLEXPRESS;Database=appointments;User Id=chinook;Password=pr0t3ct3d";
-            var sender = new SqlMessageSender(connStr, "dbo.commands");
+            var sender = new SqlMessageSender(connStr, "dbo.messages");
             var msg1 = new Message("message body1", DateTime.Today, "12345678");
             var msg2 = new Message("message body2", DateTime.Today, "12345678");
             var msg3 = new Message("message body3", DateTime.Today, "12345678");
@@ -33,7 +33,7 @@ namespace EventSource.Tests
                     FROM {0} WITH (UPDLOCK, READPAST)
                     WHERE ({0}.[DeliveryDate] IS NULL) OR ({0}.[DeliveryDate] <= @CurrentDate)
                     ORDER BY {0}.[Id] ASC",
-                "commands");
+                "messages");
             using (var connection = connectionFactory.CreateConnection(connStr))
             {
                 connection.Open();

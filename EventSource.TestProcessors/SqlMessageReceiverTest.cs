@@ -10,7 +10,7 @@ namespace EventSource.TestProcessors
     {
         public static void RunReiver(string connStr)
         {
-            var receiver = new SqlMessageReceiver(connStr, "dbo.commands");
+            var receiver = new SqlMessageReceiver(connStr, "dbo.messages");
             receiver.Start((message) =>
             {
                 Console.WriteLine(message.Body);
