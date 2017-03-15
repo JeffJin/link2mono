@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Appointments.EventHandlers;
 using EventSource.TestProcessors;
 
 namespace EventSource.TestEventProcessor
@@ -16,6 +17,17 @@ namespace EventSource.TestEventProcessor
             EventProcessorTest.Run(connStr);
 
             Console.ReadLine();
+        }
+
+        private static void StartEventReceiver()
+        {
+            var eventStore = new SqlEventStore(connStr, "dbo.events");
+            var receiver = new SqlEventReceiver(eventStore);
+            receiver.Start((EventData evt) =>
+            {
+                Console.WriteLine(evt.Payload);
+            });
+
         }
     }
 }

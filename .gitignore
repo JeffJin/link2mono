@@ -273,3 +273,6 @@ obj
 /Appointments.Commands/Appointments.Events.dll
 /Appointments.Events/*.user
 /Appointments.Events/obj
+/Appointments.Services/bin/Debug/*.dll
+/Appointments.Services/obj/Debug/Appointments.Services.dll
+/Appointments.Commands/EventSource.dll.config

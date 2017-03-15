@@ -90,7 +90,6 @@
     <Compile Include="Messages\MessageReceivedEventArgs.cs" />
     <Compile Include="Messages\SqlMessageReceiver.cs" />
     <Compile Include="Messages\InMemoryMessageStore.cs" />
-    <Compile Include="Commands\MessageProcessor.cs" />
     <Compile Include="ReadModel\IReadModel.cs" />
     <Compile Include="ReadModel\IReadModelStorage.cs" />
     <Compile Include="ReadModel\InMemeoryStorage.cs" />

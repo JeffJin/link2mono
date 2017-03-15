@@ -14,21 +14,11 @@ namespace EventSource.TestProcessors
 
         static void Main(string[] args)
         {
-            StartMessageReceiver();
+            StartCommandProcessor();
 
             Console.ReadLine();
         }
 
-        private static void StartEventReceiver()
-        {
-            var eventStore = new SqlEventStore(connStr, table);
-            var receiver = new SqlEventReceiver(eventStore);
-            receiver.Start((EventData evt) =>
-            {
-                Console.WriteLine(evt.Payload);
-            });
-
-        }
         private static void StartMessageReceiver()
         {
             SqlMessageReceiverTest.RunReiver(connStr);
