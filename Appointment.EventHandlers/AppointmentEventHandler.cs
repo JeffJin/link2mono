@@ -20,9 +20,9 @@ namespace Appointments.EventHandlers
 			Console.WriteLine("AppointmentEventHandler Handle " + evt.ToString());
 			
 			AppointmentReadModel readModel = new AppointmentReadModel();
-			readModel.Body = evt.Appointment.Body;
+		    readModel.Id = evt.Appointment.Id;
+            readModel.Body = evt.Appointment.Body;
 			readModel.Subject = evt.Appointment.Subject;
-			readModel.Id = evt.Appointment.Id;
 			readModel.Start = evt.Appointment.Start;
 			readModel.End = evt.Appointment.End;
 			readModel.Organizer = evt.Appointment.Organizer;

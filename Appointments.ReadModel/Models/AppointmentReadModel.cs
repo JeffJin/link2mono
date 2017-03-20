@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using EventSource;
 
 namespace Appointments.Dto
@@ -8,10 +9,9 @@ namespace Appointments.Dto
 	{
 		public AppointmentReadModel()
         {
-			Id = Guid.NewGuid();
 		}
-
-		public Guid Id { get; set; }
+	    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid Id { get; set; }
 
 		public DateTimeOffset Start { get; set; }
 
