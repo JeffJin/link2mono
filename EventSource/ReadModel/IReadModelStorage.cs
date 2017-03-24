@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventSource;
 
-namespace Appointments.EventHandlers
+namespace EventSource
 {
 	public interface IReadModelStorage<T> where T : IReadModel
 	{

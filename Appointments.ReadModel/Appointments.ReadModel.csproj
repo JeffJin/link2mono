@@ -46,6 +46,7 @@
     <Compile Include="Models\AppointmentReadModel.cs" />
     <Compile Include="ReadModelContext.cs" />
     <Compile Include="ReadModelInitializer.cs" />
+    <Compile Include="SqlReadModelStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

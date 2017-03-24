@@ -96,7 +96,6 @@
     <Compile Include="EventStore\InMemeoryEventStore.cs" />
     <Compile Include="EventStore\IEvent.cs" />
     <Compile Include="Messages\JsonTextSerializer.cs" />
-    <Compile Include="ReadModel\SqlReadModelStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Storage\" />

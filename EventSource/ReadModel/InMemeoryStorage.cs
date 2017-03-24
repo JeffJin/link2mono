@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Appointments.EventHandlers;
 using EventSource;
 
-namespace Appointments.EventHandlers
+namespace EventSource
 {
 	public class InMemeoryStorage<T> : IReadModelStorage<T> where T: IReadModel
 	{
