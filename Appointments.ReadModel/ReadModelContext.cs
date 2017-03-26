@@ -12,11 +12,11 @@ namespace Appointments.ReadModel
     public class ReadModelContext : DbContext
     {
 
-        public ReadModelContext() : base("ReadModelContext")
+        public ReadModelContext() : base("appointments")
         {
         }
 
-        public DbSet<AppointmentReadModel> Students { get; set; }
+        public DbSet<AppointmentReadModel> Appointments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

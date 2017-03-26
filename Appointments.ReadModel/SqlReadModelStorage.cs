@@ -24,7 +24,11 @@ namespace Appointments.ReadModel
 
         public Task Save(AppointmentReadModel model)
         {
-            throw new NotImplementedException();
+            using (var context = this._contextFactory.Invoke())
+            {
+                context.Appointments.Add(model);
+                return context.SaveChangesAsync();
+            }
         }
 
         public Task Get(Guid id)
