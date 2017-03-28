@@ -43,6 +43,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SqlReadModelStorageTests.cs" />
     <Compile Include="SqlReadModelContextTests.cs" />
     <Compile Include="MakeAppointmentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

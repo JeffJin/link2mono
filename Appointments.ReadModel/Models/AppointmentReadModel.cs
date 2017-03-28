@@ -17,6 +17,8 @@ namespace Appointments.Dto
 
 		public DateTimeOffset End { get; set; }
 
+		public DateTimeOffset CreatedOn { get; set; }
+
 		public int TimeZoneOffset { get; set; }
 
 		public string Subject { get; set; }

@@ -11,7 +11,7 @@ namespace EventSource
 	{
 		private Dictionary<Guid, T> storage = new Dictionary<Guid, T>();
 
-		public Task Get(Guid id)
+		public Task<T> Get(Guid id)
 		{
 			T result;
 			if (storage.TryGetValue(id, out result))
@@ -24,10 +24,10 @@ namespace EventSource
 			}
 		}
 
-		public Task<IEnumerable<T>> GetAll(int pageIndex, int pageSize)
+		public Task<List<T>> GetAll(int pageIndex, int pageSize)
 		{
 			var results = storage.Values.Skip(pageIndex * pageSize).Take(pageSize);
-			return Task.FromResult(results);
+			return Task.FromResult(results.ToList());
 		}
 
 		public Task Save(T model)

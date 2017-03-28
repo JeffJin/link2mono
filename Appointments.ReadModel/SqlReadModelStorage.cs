@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +18,14 @@ namespace Appointments.ReadModel
             _contextFactory = contextFactory;
         }
 
-        Task<IEnumerable<AppointmentReadModel>> IReadModelStorage<AppointmentReadModel>.GetAll(int pageIndex, int pageSize)
+        public Task<List<AppointmentReadModel>> GetAll(int pageIndex, int pageSize)
         {
-            throw new NotImplementedException();
+            using (var context = this._contextFactory.Invoke())
+            {
+                var results = context.Appointments.OrderBy(appt => appt.CreatedOn).Skip(pageIndex * pageSize).Take(pageSize);
+            
+                return Task.FromResult(results.ToList());
+            }
         }
 
         public Task Save(AppointmentReadModel model)
@@ -27,14 +33,18 @@ namespace Appointments.ReadModel
             using (var context = this._contextFactory.Invoke())
             {
                 context.Appointments.Add(model);
-                return context.SaveChangesAsync();
+                var result = context.SaveChanges();
+                return Task.FromResult(result);
             }
         }
 
-        public Task Get(Guid id)
+        public Task<AppointmentReadModel> Get(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = this._contextFactory.Invoke())
+            {
+                var appt = context.Appointments.SingleOrDefault(apt => apt.Id == id);
+                return Task.FromResult(appt);
+            }
         }
-        
     }
 }

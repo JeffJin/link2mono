@@ -7,9 +7,9 @@ namespace EventSource
 {
 	public interface IReadModelStorage<T> where T : IReadModel
 	{
-		Task<IEnumerable<T>> GetAll(int pageIndex, int pageSize);
+		Task<List<T>> GetAll(int pageIndex, int pageSize);
 		Task Save(T model);
-		Task Get(Guid id);
+		Task<T> Get(Guid id);
 	}
 
 }
