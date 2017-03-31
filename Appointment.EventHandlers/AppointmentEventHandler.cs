@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Appointments.Aggregates;
 using Appointments.Dto;
@@ -17,7 +18,7 @@ namespace Appointments.EventHandlers
 
 		public void Handle(AppointmentCreated evt)
 		{
-			Console.WriteLine("AppointmentEventHandler Handle " + evt.ToString());
+			Debug.WriteLine("AppointmentEventHandler Handle " + evt.ToString());
 			
 			AppointmentReadModel readModel = new AppointmentReadModel();
 		    readModel.Id = evt.Appointment.Id;
@@ -29,7 +30,8 @@ namespace Appointments.EventHandlers
 			readModel.TimeZoneOffset = evt.Appointment.TimeZoneOffset;
 			readModel.AttendeeNames = String.Concat(", ", evt.Appointment.Attendees.Select(a => a.Name));
 
-			this.storage.Save(readModel);
+		    var task = this.storage.Save(readModel);
+		    task.Wait();
 		}
 	}
 }
